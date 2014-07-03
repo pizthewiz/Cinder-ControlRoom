@@ -24,9 +24,10 @@ Module::Module(const Rectf& frame) : View(frame) {
 
         mTrackingView = nullptr;
         for (const ViewRef& view : mSubviews) {
-            if (!view->getFrame().contains(point)) {
+            if (view->isHidden() || !view->getFrame().contains(point)) {
                 continue;
             }
+
             mTrackingView = view;
             break;
         }

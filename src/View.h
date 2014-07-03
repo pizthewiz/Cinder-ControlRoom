@@ -46,6 +46,13 @@ public:
     }
     bool isDescendantOfView(const ViewRef& view);
 
+    inline void setHidden(bool hidden) {
+        mHidden = hidden;
+    }
+    inline bool isHidden() const {
+        return mHidden;
+    }
+
     virtual void draw();
 
     virtual void mouseDown(MouseEvent event) {}
@@ -70,6 +77,8 @@ protected:
 
     ViewRef mSuperview;
     std::vector<ViewRef> mSubviews;
+
+    bool mHidden;
 };
 
 }}

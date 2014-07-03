@@ -14,7 +14,7 @@ namespace Cinder { namespace ControlRoom {
 using namespace ci;
 using namespace ci::app;
 
-View::View(const Rectf& frame) : mFrame(frame) {
+View::View(const Rectf& frame) : mFrame(frame), mHidden(false) {
 }
 
 View::~View() {
@@ -49,6 +49,10 @@ void View::draw() {
 
         // draw subviews
         for (const ViewRef& view : mSubviews) {
+            if (view->isHidden()) {
+                continue;
+            }
+
             gl::pushModelView(); {
                 gl::translate(view->getFrame().getUpperLeft());
 
