@@ -20,9 +20,13 @@ ModuleRef Module::create(const Rectf& frame) {
 Module::Module(const Rectf& frame) : View(frame) {
     app::App* app = app::App::get();
     mConnectionMouseDown = app->getWindow()->getSignalMouseDown().connect([&](MouseEvent event) {
-        Vec2i point = convertPointFromView(event.getPos(), nullptr);
-
         mTrackingView = nullptr;
+
+        Vec2i point = convertPointFromView(event.getPos(), nullptr);
+        if (!getBounds().contains(point)) {
+            return;
+        }
+
         for (const ViewRef& view : mSubviews) {
             if (view->isHidden() || !view->getFrame().contains(point)) {
                 continue;
@@ -34,8 +38,8 @@ Module::Module(const Rectf& frame) : View(frame) {
 
         if (mTrackingView) {
             mTrackingView->mouseDown(event);
-            event.setHandled();
         }
+        event.setHandled();
     });
     mConnectionMouseDrag = app->getWindow()->getSignalMouseDrag().connect([&](MouseEvent event) {
         if (!mTrackingView) {
