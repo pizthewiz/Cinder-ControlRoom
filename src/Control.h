@@ -16,7 +16,7 @@ using namespace ci;
 
 typedef std::shared_ptr<class Control> ControlRef;
 
-enum class ControlState {Normal, Disabled, Selected};
+enum class ControlState {Normal, Highlighted, Disabled};
 enum class ControlEvent {Down, UpInside, UpOutside, ValueChanged};
 
 class Control : public View {
@@ -24,24 +24,24 @@ public:
     ~Control() {}
 
     inline void setEnabled(bool enabled) {
-        mEnabled = enabled;
+        mState = enabled ? ControlState::Normal : ControlState::Disabled;
     }
     inline bool isEnabled() const {
-        return mEnabled;
+        return mState != ControlState::Disabled;
     }
 
-    inline void setState(const ControlState& state) {
-        mState = state;
-    }
     inline ControlState getState() const {
         return mState;
     }
 
     inline void setHighlighted(bool highlighted) {
-        mHighlighted = highlighted;
+        if (!isEnabled()) {
+            return;
+        }
+        mState = highlighted ? ControlState::Highlighted : ControlState::Normal;
     }
     inline bool isHighlighted() const {
-        return mHighlighted;
+        return mState == ControlState::Highlighted;
     }
 
     template<typename T, typename Y>
@@ -55,11 +55,9 @@ public:
     virtual void draw() = 0;
 
 protected:
-    Control(const Rectf& frame) : View(frame), mEnabled(true), mState(ControlState::Normal), mHighlighted(false) {}
+    Control(const Rectf& frame) : View(frame), mState(ControlState::Normal) {}
 
-    bool mEnabled;
     ControlState mState;
-    bool mHighlighted;
 
     std::map<ControlEvent, std::function<void (void)>> mControlEventHandlerMap;
 };

@@ -45,11 +45,11 @@ void Button::draw() {
 #pragma mark -
 
 void Button::mouseDown(MouseEvent event) {
-    if (!mEnabled) {
+    if (!isEnabled()) {
         return;
     }
 
-    mHighlighted = true;
+    mState = ControlState::Highlighted;
 
     if (mControlEventHandlerMap.find(ControlEvent::Down) != mControlEventHandlerMap.end()) {
         mControlEventHandlerMap[ControlEvent::Down]();
@@ -57,18 +57,18 @@ void Button::mouseDown(MouseEvent event) {
 }
 
 void Button::mouseDrag(MouseEvent event) {
-    if (!mEnabled) {
+    if (!isEnabled()) {
         return;
     }
 
     Vec2i point = convertPointFromView(event.getPos(), nullptr);
-    if (getBounds().contains(point) != mHighlighted) {
-        mHighlighted = !mHighlighted;
+    if (getBounds().contains(point) != isHighlighted()) {
+        mState = mState == ControlState::Normal ? ControlState::Highlighted : ControlState::Normal;
     }
 }
 
 void Button::mouseUp(MouseEvent event) {
-    if (!mEnabled) {
+    if (!isEnabled()) {
         return;
     }
 
@@ -78,7 +78,7 @@ void Button::mouseUp(MouseEvent event) {
         mControlEventHandlerMap[e]();
     }
 
-    mHighlighted = false;
+    mState = ControlState::Normal;
 }
 
 }}

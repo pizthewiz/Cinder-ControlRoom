@@ -54,7 +54,7 @@ void Slider::draw() {
 #pragma mark -
 
 void Slider::mouseDown(MouseEvent event) {
-    if (!mEnabled) {
+    if (!isEnabled()) {
         return;
     }
 
@@ -70,7 +70,7 @@ void Slider::mouseDown(MouseEvent event) {
 }
 
 void Slider::mouseDrag(MouseEvent event) {
-    if (!mEnabled) {
+    if (!isEnabled()) {
         return;
     }
 
@@ -80,7 +80,7 @@ void Slider::mouseDrag(MouseEvent event) {
 }
 
 void Slider::mouseUp(MouseEvent event) {
-    if (!mEnabled) {
+    if (!isEnabled()) {
         return;
     }
 
