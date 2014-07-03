@@ -45,11 +45,11 @@ public:
     }
 
     template<typename T, typename Y>
-    inline void connectHandler(const ControlEvent& event, T handler, Y* obj) {
-        connectHandler(event, std::bind(handler, obj));
+    inline void connectControlEventHandler(const ControlEvent& event, T handler, Y* obj) {
+        connectControlEventHandler(event, std::bind(handler, obj));
     }
-    void connectHandler(const ControlEvent& event, const std::function<void (void)>& handler) {
-        mHandlerMap[event] = handler;
+    void connectControlEventHandler(const ControlEvent& event, const std::function<void (void)>& handler) {
+        mControlEventHandlerMap[event] = handler;
     }
 
     virtual void draw() = 0;
@@ -61,7 +61,7 @@ protected:
     ControlState mState;
     bool mHighlighted;
 
-    std::map<ControlEvent, std::function<void (void)>> mHandlerMap;
+    std::map<ControlEvent, std::function<void (void)>> mControlEventHandlerMap;
 };
 
 }}
