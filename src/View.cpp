@@ -1,0 +1,88 @@
+//
+//  View.cpp
+//  Cinder-ControlRoom
+//
+//  Created by Jean-Pierre Mouilleseaux on 02 Jul 2014.
+//  Copyright 2014 Chorded Constructions. All rights reserved.
+//
+
+#include "View.h"
+
+
+namespace Cinder { namespace ControlRoom {
+
+using namespace ci;
+using namespace ci::app;
+
+View::View(const Rectf& frame) : mFrame(frame) {
+}
+
+View::~View() {
+    removeFromSuperview();
+}
+
+#pragma mark -
+
+bool View::isDescendantOfView(const ViewRef& view) {
+    // 💀 - view of nullptr is used to represent window content view
+    if (!view) {
+        return true;
+    }
+
+    bool status = false;
+    ViewRef v = getSuperview();
+    while (v) {
+        if (v == view) {
+            status = true;
+            break;
+        }
+        v = v->getSuperview();
+    }
+    return status;
+}
+
+#pragma mark -
+
+void View::draw() {
+    gl::pushModelView(); {
+        gl::translate(mFrame.getUpperLeft());
+
+        // draw subviews
+        for (const ViewRef& view : mSubviews) {
+            gl::pushModelView(); {
+                gl::translate(view->getFrame().getUpperLeft());
+
+                view->draw();
+            } gl::popModelView();
+        }
+    } gl::popModelView();
+}
+
+#pragma mark -
+
+Vec2i View::convertPointFromView(const Vec2f& point, const ViewRef& view) {
+    // view to local
+    Vec2f p = point;
+    if (isDescendantOfView(view)) {
+        p -= mFrame.getUpperLeft();
+        if (mSuperview && mSuperview != view) {
+            p = mSuperview->convertPointFromView(p, view);
+        }
+    } else {
+        // TODO - implement
+    }
+    return p;
+}
+
+Vec2i View::convertPointToView(const Vec2i& point, const ViewRef& view) {
+    // local to view
+    Vec2i p = point;
+    if (isDescendantOfView(view)) {
+        // TODO - implement
+    } else {
+        // TODO - implement
+    }
+    return p;
+}
+
+}}

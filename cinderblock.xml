@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<cinder>
+<block
+    name="Control Room"
+    id="com.chordedconstructions.fleshworld.cinder-controlroom"
+    git="https://github.com/pizthewiz/Cinder-ControlRoom.git"
+    author="Jean-Pierre Mouilleseaux"
+    summary=""
+    url="https://github.com/pizthewiz/Cinder-ControlRoom"
+    >
+    <supports os="macosx" />
+    <header>src/Cinder-ControlRoom.h</header>
+    <headerPattern>src/*.h</headerPattern>
+    <sourcePattern>src/*.cpp</sourcePattern>
+    <asset>assets/SOME-FONT.EXT</asset>
+    <copyExclude>samples</copyExclude>
+</block>
+</cinder>
