@@ -14,6 +14,7 @@
 
 #include "View.h"
 #include "Module.h"
+#include "Label.h"
 #include "Control.h"
 #include "Button.h"
 #include "Slider.h"

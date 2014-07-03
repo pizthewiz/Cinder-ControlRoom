@@ -3,6 +3,10 @@
 - clip title
 - calculate baseline on title/frame change and cache
 
+# LABEL
+- clip text
+- calculate baseline on title/frame change and cache
+
 # VIEW
 - implement point conversions
 
