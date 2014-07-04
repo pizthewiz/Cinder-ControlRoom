@@ -46,6 +46,13 @@ public:
     }
     bool isDescendantOfView(const ViewRef& view);
 
+    inline void setBackgroundColor(const Color& color) {
+        mBackgroundColor = color;
+    }
+    inline Color getBackgroundColor() const {
+        return mBackgroundColor;
+    }
+
     inline void setHidden(bool hidden) {
         mHidden = hidden;
     }
@@ -78,6 +85,7 @@ protected:
     ViewRef mSuperview;
     std::vector<ViewRef> mSubviews;
 
+    Color mBackgroundColor;
     bool mHidden;
 };
 

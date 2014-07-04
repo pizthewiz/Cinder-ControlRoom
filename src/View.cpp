@@ -14,7 +14,7 @@ namespace Cinder { namespace ControlRoom {
 using namespace ci;
 using namespace ci::app;
 
-View::View(const Rectf& frame) : mFrame(frame), mHidden(false) {
+View::View(const Rectf& frame) : mBackgroundColor(ColorAf::zero()), mFrame(frame), mHidden(false) {
 }
 
 View::~View() {
@@ -46,6 +46,12 @@ bool View::isDescendantOfView(const ViewRef& view) {
 void View::draw() {
     gl::pushModelView(); {
         gl::translate(mFrame.getUpperLeft());
+
+        // draw background
+        if (mBackgroundColor != ColorAf::zero()) {
+            gl::color(mBackgroundColor);
+            gl::drawSolidRect(getBounds());
+        }
 
         // draw subviews
         for (const ViewRef& view : mSubviews) {
