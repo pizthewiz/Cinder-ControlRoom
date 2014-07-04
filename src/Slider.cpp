@@ -45,7 +45,7 @@ void Slider::draw() {
     gl::drawSolidRect(bounds);
 
     // fill
-    float width = mFrame.getWidth() * (mValue - mMinimum) / mMaximum;
+    float width = bounds.getWidth() * (mValue - mMinimum) / mMaximum;
     Rectf fillFrame = Rectf(Vec2f(0.0f, 0.0f), Vec2f(width, bounds.getHeight()));
     gl::color(Color::gray(170.0f/255.0f));
     gl::drawSolidRect(fillFrame);
