@@ -24,6 +24,8 @@ public:
     static LabelRef create(const Rectf& frame, const std::string& text);
     ~Label();
 
+    LabelRef getPtr() { return std::static_pointer_cast<Label>(shared_from_this()); }
+
     inline void setText(const std::string& text) {
         mText = text;
     }

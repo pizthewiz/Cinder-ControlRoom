@@ -21,7 +21,7 @@ enum class ControlEvent {Down, UpInside, UpOutside, ValueChanged};
 
 class Control : public View {
 public:
-    ~Control() {}
+    virtual ~Control() {}
 
     inline void setEnabled(bool enabled) {
         mState = enabled ? ControlState::Normal : ControlState::Disabled;

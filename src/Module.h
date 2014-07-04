@@ -19,7 +19,9 @@ typedef std::shared_ptr<class Module> ModuleRef;
 class Module : public View {
 public:
     static ModuleRef create(const Rectf& frame);
-    ~Module();
+    virtual ~Module();
+
+    ModuleRef getPtr() { return std::static_pointer_cast<Module>(shared_from_this()); }
 
 protected:
     Module(const Rectf& frame);

@@ -19,7 +19,9 @@ typedef std::shared_ptr<class View> ViewRef;
 
 class View : public std::enable_shared_from_this<View> {
 public:
-    ~View();
+    virtual ~View();
+
+    ViewRef getPtr() { return shared_from_this(); }
 
     inline void setFrame(const Rectf& frame) {
         mFrame = frame;

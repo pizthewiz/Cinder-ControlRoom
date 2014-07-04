@@ -19,6 +19,9 @@ typedef std::shared_ptr<class Slider> SliderRef;
 class Slider : public Control {
 public:
     static SliderRef create(const Rectf& frame, float value, float minimum, float maximum);
+    ~Slider();
+
+    SliderRef getPtr() { return std::static_pointer_cast<Slider>(shared_from_this()); }
 
     inline void setValue(float value);
     inline float getValue() const {

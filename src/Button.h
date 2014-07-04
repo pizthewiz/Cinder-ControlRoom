@@ -22,6 +22,9 @@ enum class ButtonType {MomentaryPushIn};
 class Button : public Control {
 public:
     static ButtonRef create(const Rectf& frame, const ButtonType& type, const std::string& title);
+    ~Button();
+
+    ButtonRef getPtr() { return std::static_pointer_cast<Button>(shared_from_this()); }
 
     inline void setType(const ButtonType& type) {
         mType = type;

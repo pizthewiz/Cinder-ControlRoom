@@ -20,6 +20,9 @@ SliderRef Slider::create(const Rectf& frame, float value, float minimum, float m
 Slider::Slider(const Rectf& frame, float value, float minimum, float maximum) : Control(frame), mValue(value), mMinimum(minimum), mMaximum(maximum), mContinuous(true), mTracking(false) {
 }
 
+Slider::~Slider() {
+}
+
 #pragma mark -
 
 inline void Slider::setValue(float value) {

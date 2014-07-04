@@ -21,6 +21,9 @@ Button::Button(const Rectf& frame, const ButtonType& type, const std::string& ti
     mFont = gl::TextureFont::create(Font("Menlo", 16.0f * 2.0f), gl::TextureFont::Format().enableMipmapping());
 }
 
+Button::~Button() {
+}
+
 #pragma mark -
 
 void Button::draw() {
