@@ -42,6 +42,9 @@ public:
         view->setSuperview(shared_from_this());
     }
     inline void removeFromSuperview() {
+        if (!mSuperview) {
+            return;
+        }
         mSuperview->removeSubview(shared_from_this());
     }
     bool isDescendantOfView(const ViewRef& view);
@@ -76,6 +79,9 @@ protected:
         mSuperview = view;
     }
     inline void removeSubview(const ViewRef& view) {
+        if (!view) {
+            return;
+        }
         mSubviews.erase(std::find(mSubviews.begin(), mSubviews.end(), view));
         view->setSuperview(nullptr);
     }
