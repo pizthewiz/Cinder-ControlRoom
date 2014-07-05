@@ -28,9 +28,11 @@ Module::Module(const Rectf& frame) : View(frame) {
         }
 
         for (const ViewRef& view : mSubviews) {
-            if (view->isHidden() || !view->getFrame().contains(point)) {
+            if (!view->getFrame().contains(point) || view->isHidden()) {
                 continue;
             }
+
+            // TODO - reject on disabled controls
 
             mTrackingView = view;
             break;
