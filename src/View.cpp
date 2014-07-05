@@ -106,4 +106,14 @@ Vec2i View::convertPointToView(const Vec2i& point, const ViewRef& view) {
     return p;
 }
 
+#pragma mark -
+
+void View::removeSubview(const ViewRef& view) {
+    if (!view) {
+        return;
+    }
+    mSubviews.erase(std::find(mSubviews.begin(), mSubviews.end(), view));
+    view->setSuperview(nullptr);
+}
+
 }}

@@ -52,13 +52,7 @@ protected:
     View(const Rectf& frame);
 
     inline void setSuperview(const ViewRef& view) { mSuperview = view; }
-    inline void removeSubview(const ViewRef& view) {
-        if (!view) {
-            return;
-        }
-        mSubviews.erase(std::find(mSubviews.begin(), mSubviews.end(), view));
-        view->setSuperview(nullptr);
-    }
+    void removeSubview(const ViewRef& view);
 
     Rectf mFrame;
 
