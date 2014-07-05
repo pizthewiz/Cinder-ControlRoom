@@ -11,7 +11,6 @@
 namespace Cinder { namespace ControlRoom {
 
 using namespace ci;
-using namespace ci::app;
 
 ButtonRef Button::create(const Rectf& frame, const ButtonType& type, const std::string& title) {
     return ButtonRef(new Button(frame, type, title));

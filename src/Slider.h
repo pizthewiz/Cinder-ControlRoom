@@ -24,28 +24,14 @@ public:
     SliderRef getPtr() { return std::static_pointer_cast<Slider>(shared_from_this()); }
 
     inline void setValue(float value);
-    inline float getValue() const {
-        return mValue;
-    }
-    inline void setMinimumValue(float value) {
-        mMinimum = value;
-    }
-    inline float getMinimumValue() const {
-        return mMinimum;
-    }
-    inline void setMaximumValue(float value) {
-        mMaximum = value;
-    }
-    inline float getMaximumValue() const {
-        return mMaximum;
-    }
+    inline float getValue() const { return mValue; }
+    inline void setMinimumValue(float value) { mMinimum = value; }
+    inline float getMinimumValue() const { return mMinimum; }
+    inline void setMaximumValue(float value) { mMaximum = value; }
+    inline float getMaximumValue() const { return mMaximum; }
 
-    inline void setContinuous(bool continuous) {
-        mContinuous = continuous;
-    }
-    inline bool isContinuous() const {
-        return mContinuous;
-    }
+    inline void setContinuous(bool continuous) { mContinuous = continuous; }
+    inline bool isContinuous() const { return mContinuous; }
 
     void draw();
 

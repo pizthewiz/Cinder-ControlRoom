@@ -26,26 +26,14 @@ public:
 
     LabelRef getPtr() { return std::static_pointer_cast<Label>(shared_from_this()); }
 
-    inline void setText(const std::string& text) {
-        mText = text;
-    }
-    inline std::string getText() const {
-        return mText;
-    }
+    inline void setText(const std::string& text) { mText = text; }
+    inline std::string getText() const { return mText; }
 
-    inline void setTextAlignment(const TextAlignment& alignment) {
-        mAlignment = alignment;
-    }
-    inline TextAlignment getTextAlignment() const {
-        return mAlignment;
-    }
+    inline void setTextAlignment(const TextAlignment& alignment) { mAlignment = alignment; }
+    inline TextAlignment getTextAlignment() const { return mAlignment; }
 
-    inline void setEnabled(bool enabled) {
-        mEnabled = enabled;
-    }
-    inline bool isEnabled() const {
-        return mEnabled;
-    }
+    inline void setEnabled(bool enabled) { mEnabled = enabled; }
+    inline bool isEnabled() const { return mEnabled; }
 
     void draw();
 
@@ -58,5 +46,5 @@ protected:
 
     gl::TextureFontRef mFont;
 };
-    
+
 }}

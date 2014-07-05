@@ -12,9 +12,8 @@
 namespace Cinder { namespace ControlRoom {
 
 using namespace ci;
-using namespace ci::app;
 
-View::View(const Rectf& frame) : mBackgroundColor(ColorAf::zero()), mFrame(frame), mHidden(false) {
+View::View(const Rectf& frame) : mFrame(frame), mBackgroundColor(ColorAf::zero()), mHidden(false) {
 }
 
 View::~View() {
@@ -22,6 +21,18 @@ View::~View() {
 }
 
 #pragma mark -
+
+void View::addSubview(const ViewRef& view) {
+    mSubviews.push_back(view);
+    view->setSuperview(shared_from_this());
+}
+
+void View::removeFromSuperview() {
+    if (!mSuperview) {
+        return;
+    }
+    mSuperview->removeSubview(shared_from_this());
+}
 
 bool View::isDescendantOfView(const ViewRef& view) {
     // 💀 - view of nullptr is used to represent window content view

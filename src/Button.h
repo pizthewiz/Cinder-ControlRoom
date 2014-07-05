@@ -26,19 +26,11 @@ public:
 
     ButtonRef getPtr() { return std::static_pointer_cast<Button>(shared_from_this()); }
 
-    inline void setType(const ButtonType& type) {
-        mType = type;
-    }
-    inline ButtonType getType() const {
-        return mType;
-    }
+    inline void setType(const ButtonType& type) { mType = type; }
+    inline ButtonType getType() const { return mType; }
 
-    inline void setTitle(const std::string& title) {
-        mTitle = title;
-    }
-    inline std::string getTitle() const {
-        return mTitle;
-    }
+    inline void setTitle(const std::string& title) { mTitle = title; }
+    inline std::string getTitle() const { return mTitle; }
 
     void draw();
 

@@ -23,26 +23,13 @@ class Control : public View {
 public:
     virtual ~Control() {}
 
-    inline void setEnabled(bool enabled) {
-        mState = enabled ? ControlState::Normal : ControlState::Disabled;
-    }
-    inline bool isEnabled() const {
-        return mState != ControlState::Disabled;
-    }
+    inline void setEnabled(bool enabled) { mState = enabled ? ControlState::Normal : ControlState::Disabled; }
+    inline bool isEnabled() const { return mState != ControlState::Disabled; }
 
-    inline ControlState getState() const {
-        return mState;
-    }
+    inline ControlState getState() const { return mState; }
 
-    inline void setHighlighted(bool highlighted) {
-        if (!isEnabled()) {
-            return;
-        }
-        mState = highlighted ? ControlState::Highlighted : ControlState::Normal;
-    }
-    inline bool isHighlighted() const {
-        return mState == ControlState::Highlighted;
-    }
+    inline void setHighlighted(bool highlighted) { mState = !isEnabled() ? ControlState::Disabled : (highlighted ? ControlState::Highlighted : ControlState::Normal); }
+    inline bool isHighlighted() const { return mState == ControlState::Highlighted; }
 
     template<typename T, typename Y>
     inline void connectControlEventHandler(const ControlEvent& event, T handler, Y* obj) {

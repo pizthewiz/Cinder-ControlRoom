@@ -11,13 +11,12 @@
 namespace Cinder { namespace ControlRoom {
 
 using namespace ci;
-using namespace ci::app;
 
 LabelRef Label::create(const Rectf& frame, const std::string& text) {
     return LabelRef(new Label(frame, text));
 }
 
-Label::Label(const Rectf& frame, const std::string& text) : View(frame), mText(text), mAlignment(TextAlignment::Left) {
+Label::Label(const Rectf& frame, const std::string& text) : View(frame), mText(text), mAlignment(TextAlignment::Left), mEnabled(true) {
     mFont = gl::TextureFont::create(Font("Menlo", 16.0f * 2.0f), gl::TextureFont::Format().enableMipmapping());
 }
 
