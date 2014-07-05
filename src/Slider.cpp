@@ -32,11 +32,6 @@ inline void Slider::setValue(float value) {
     }
 
     mValue = value;
-
-    if ((mTracking && !mContinuous) || mControlEventHandlerMap.find(ControlEvent::ValueChanged) == mControlEventHandlerMap.end()) {
-        return;
-    }
-    mControlEventHandlerMap[ControlEvent::ValueChanged]();
 }
 
 #pragma mark -
@@ -68,7 +63,11 @@ void Slider::mouseDown(MouseEvent event) {
     setValue(value);
 
     if (mControlEventHandlerMap.find(ControlEvent::Down) != mControlEventHandlerMap.end()) {
-        mControlEventHandlerMap[ControlEvent::Down]();
+        mControlEventHandlerMap[ControlEvent::Down](getPtr());
+    }
+
+    if (mContinuous && mControlEventHandlerMap.find(ControlEvent::ValueChanged) != mControlEventHandlerMap.end()) {
+        mControlEventHandlerMap[ControlEvent::ValueChanged](getPtr());
     }
 }
 
@@ -80,6 +79,10 @@ void Slider::mouseDrag(MouseEvent event) {
     Vec2i point = convertPointFromView(event.getPos(), nullptr);
     float value = (float)point.x / mFrame.getWidth() * (mMaximum - mMinimum);
     setValue(value);
+
+    if (mContinuous && mControlEventHandlerMap.find(ControlEvent::ValueChanged) != mControlEventHandlerMap.end()) {
+        mControlEventHandlerMap[ControlEvent::ValueChanged](getPtr());
+    }
 }
 
 void Slider::mouseUp(MouseEvent event) {
@@ -90,11 +93,11 @@ void Slider::mouseUp(MouseEvent event) {
     Vec2i point = convertPointFromView(event.getPos(), nullptr);
     ControlEvent e = getBounds().contains(point) ? ControlEvent::UpInside : ControlEvent::UpOutside;
     if (mControlEventHandlerMap.find(e) != mControlEventHandlerMap.end()) {
-        mControlEventHandlerMap[e]();
+        mControlEventHandlerMap[e](getPtr());
     }
 
     if (!mContinuous && mControlEventHandlerMap.find(ControlEvent::ValueChanged) != mControlEventHandlerMap.end()) {
-        mControlEventHandlerMap[ControlEvent::ValueChanged]();
+        mControlEventHandlerMap[ControlEvent::ValueChanged](getPtr());
     }
 
     mTracking = false;

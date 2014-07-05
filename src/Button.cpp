@@ -55,7 +55,7 @@ void Button::mouseDown(MouseEvent event) {
     mState = ControlState::Highlighted;
 
     if (mControlEventHandlerMap.find(ControlEvent::Down) != mControlEventHandlerMap.end()) {
-        mControlEventHandlerMap[ControlEvent::Down]();
+        mControlEventHandlerMap[ControlEvent::Down](getPtr());
     }
 }
 
@@ -78,7 +78,7 @@ void Button::mouseUp(MouseEvent event) {
     Vec2i point = convertPointFromView(event.getPos(), nullptr);
     ControlEvent e = getBounds().contains(point) ? ControlEvent::UpInside : ControlEvent::UpOutside;
     if (mControlEventHandlerMap.find(e) != mControlEventHandlerMap.end()) {
-        mControlEventHandlerMap[e]();
+        mControlEventHandlerMap[e](getPtr());
     }
 
     mState = ControlState::Normal;

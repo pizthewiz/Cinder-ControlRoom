@@ -48,7 +48,7 @@ public:
     inline void connectControlEventHandler(const ControlEvent& event, T handler, Y* obj) {
         connectControlEventHandler(event, std::bind(handler, obj));
     }
-    void connectControlEventHandler(const ControlEvent& event, const std::function<void (void)>& handler) {
+    void connectControlEventHandler(const ControlEvent& event, const std::function<void (const ControlRef&)>& handler) {
         mControlEventHandlerMap[event] = handler;
     }
 
@@ -59,7 +59,7 @@ protected:
 
     ControlState mState;
 
-    std::map<ControlEvent, std::function<void (void)>> mControlEventHandlerMap;
+    std::map<ControlEvent, std::function<void (const ControlRef&)>> mControlEventHandlerMap;
 };
 
 }}
