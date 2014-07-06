@@ -1,10 +1,14 @@
 
 # BUTTON
-- clip title
+- clip text
 - calculate baseline on title/frame change and cache
 
+# SLIDER
+- variant that takes a pointer to a float value
+
 # LABEL
-- clip text
+- expose different sizes via enum
+- truncate text with elipsis
 - calculate baseline on title/frame change and cache
 
 # VIEW
@@ -12,5 +16,6 @@
 
 # GENERAL
 - migrate texture font to a singleton, share resources
-- disabled state support
+- disabled state support across the board
 - come up with some sort of theme handling
+- support high density with a content scale other than 2, check `getWindowContentScale()`
