@@ -12,7 +12,6 @@
     <header>src/Cinder-ControlRoom.h</header>
     <headerPattern>src/*.h</headerPattern>
     <sourcePattern>src/*.cpp</sourcePattern>
-    <asset>assets/SOME-FONT.EXT</asset>
     <copyExclude>samples</copyExclude>
 </block>
 </cinder>
