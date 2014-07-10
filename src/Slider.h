@@ -12,8 +12,6 @@
 
 namespace Cinder { namespace ControlRoom {
 
-using namespace ci;
-
 typedef std::shared_ptr<class Slider> SliderRef;
 
 class Slider : public Control {
