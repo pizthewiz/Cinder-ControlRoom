@@ -4,6 +4,7 @@
 - calculate baseline on title/frame change and cache
 
 # SLIDER
+- shift and option accelerators
 - variant that takes a pointer to a float value
 
 # LABEL
