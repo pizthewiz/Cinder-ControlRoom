@@ -20,3 +20,4 @@
 - disabled state support across the board
 - come up with some sort of theme handling
 - support high density with a content scale other than 2, check `getWindowContentScale()`
+- some concept of key focus / first responder for key events
