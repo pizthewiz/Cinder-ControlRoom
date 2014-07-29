@@ -16,6 +16,7 @@ typedef std::shared_ptr<class View> ViewRef;
 
 class View : public std::enable_shared_from_this<View> {
 public:
+    static ViewRef create(const ci::Rectf& frame);
     virtual ~View();
 
     ViewRef getPtr() { return shared_from_this(); }
@@ -38,12 +39,15 @@ public:
 
     virtual void draw();
 
+    ci::Vec2i convertPointFromView(const ci::Vec2f& point, const ViewRef& view);
+    ci::Vec2i convertPointToView(const ci::Vec2i& point, const ViewRef& view);
+
     virtual void mouseDown(ci::app::MouseEvent event) {}
     virtual void mouseDrag(ci::app::MouseEvent event) {}
     virtual void mouseUp(ci::app::MouseEvent event) {}
 
-    ci::Vec2i convertPointFromView(const ci::Vec2f& point, const ViewRef& view);
-    ci::Vec2i convertPointToView(const ci::Vec2i& point, const ViewRef& view);
+    void connectEventListeners();
+    void disconnectEventListeners();
 
 protected:
     View(const ci::Rectf& frame);
@@ -52,12 +56,15 @@ protected:
     void removeSubview(const ViewRef& view);
 
     ci::Rectf mFrame;
-
     ViewRef mSuperview;
     std::vector<ViewRef> mSubviews;
-
     ci::Color mBackgroundColor;
     bool mHidden;
+
+    ci::signals::scoped_connection mConnectionMouseDown;
+    ci::signals::scoped_connection mConnectionMouseDrag;
+    ci::signals::scoped_connection mConnectionMouseUp;
+    ViewRef mTrackingView;
 };
 
 }}

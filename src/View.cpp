@@ -12,11 +12,17 @@
 namespace Cinder { namespace ControlRoom {
 
 using namespace ci;
+using namespace ci::app;
+
+ViewRef View::create(const ci::Rectf& frame) {
+    return ViewRef(new View(frame));
+}
 
 View::View(const Rectf& frame) : mFrame(frame), mBackgroundColor(ColorAf::zero()), mHidden(false) {
 }
 
 View::~View() {
+    disconnectEventListeners();
     removeFromSuperview();
 }
 
@@ -70,6 +76,7 @@ void View::draw() {
                 continue;
             }
 
+            // TODO - move this into Control.cpp
             gl::pushModelView(); {
                 gl::translate(view->getFrame().getUpperLeft());
 
@@ -107,6 +114,60 @@ Vec2i View::convertPointToView(const Vec2i& point, const ViewRef& view) {
 }
 
 #pragma mark -
+
+void View::connectEventListeners() {
+    app::App* app = app::App::get();
+    mConnectionMouseDown = app->getWindow()->getSignalMouseDown().connect([&](MouseEvent event) {
+        mTrackingView = nullptr;
+
+        Vec2i point = convertPointFromView(event.getPos(), nullptr);
+        if (!getBounds().contains(point)) {
+            return;
+        }
+
+        for (const ViewRef& view : mSubviews) {
+            if (!view->getFrame().contains(point) || view->isHidden()) {
+                continue;
+            }
+
+            // TODO - reject on disabled controls
+
+            mTrackingView = view;
+            break;
+        }
+
+        if (mTrackingView) {
+            mTrackingView->mouseDown(event);
+        }
+        event.setHandled();
+    });
+    mConnectionMouseDrag = app->getWindow()->getSignalMouseDrag().connect([&](MouseEvent event) {
+        if (!mTrackingView) {
+            return;
+        }
+
+        mTrackingView->mouseDrag(event);
+        event.setHandled();
+    });
+    mConnectionMouseUp = app->getWindow()->getSignalMouseUp().connect([&](MouseEvent event) {
+        if (!mTrackingView) {
+            return;
+        }
+
+        mTrackingView->mouseUp(event);
+        event.setHandled();
+        
+        mTrackingView = nullptr;
+    });
+}
+
+void View::disconnectEventListeners() {
+    mConnectionMouseDown.disconnect();
+    mConnectionMouseDrag.disconnect();
+    mConnectionMouseUp.disconnect();
+}
+
+#pragma mark - PRIVATE
 
 void View::removeSubview(const ViewRef& view) {
     if (!view) {
