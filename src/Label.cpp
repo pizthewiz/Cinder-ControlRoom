@@ -26,21 +26,25 @@ Label::~Label() {
 #pragma mark -
 
 void Label::draw() {
-    gl::enableAlphaBlending(); {
-        gl::color(Color::gray(74.0f/255.0f));
+    gl::pushModelView(); {
+        gl::translate(getFrame().getUpperLeft());
 
-        Vec2f textSize = mFont->measureString(mText) * 0.5f;
-        Rectf availableFrame = getBounds();
-        float x = availableFrame.getMinX();
-        if (mAlignment == TextAlignment::Center) {
-            x = availableFrame.getMinX() + math<float>::max((availableFrame.getWidth() - textSize.x) * 0.5f, 0.0f);
-        } else if (mAlignment == TextAlignment::Right) {
-            x = math<float>::max(availableFrame.getMaxX() - textSize.x, 0.0f);
-        }
-        float y = availableFrame.getMinY() + math<float>::max((availableFrame.getHeight() - textSize.y) * 0.5f, 0.0f) + textSize.y - 4.0f /* magic number */;
-        Vec2f baseline = Vec2f(x, y);
-        mFont->drawString(mText, baseline, gl::TextureFont::DrawOptions().scale(0.5f).pixelSnap(false));
-    } gl::disableAlphaBlending();
+        gl::enableAlphaBlending(); {
+            gl::color(Color::gray(74.0f/255.0f));
+
+            Vec2f textSize = mFont->measureString(mText) * 0.5f;
+            Rectf availableFrame = getBounds();
+            float x = availableFrame.getMinX();
+            if (mAlignment == TextAlignment::Center) {
+                x = availableFrame.getMinX() + math<float>::max((availableFrame.getWidth() - textSize.x) * 0.5f, 0.0f);
+            } else if (mAlignment == TextAlignment::Right) {
+                x = math<float>::max(availableFrame.getMaxX() - textSize.x, 0.0f);
+            }
+            float y = availableFrame.getMinY() + math<float>::max((availableFrame.getHeight() - textSize.y) * 0.5f, 0.0f) + textSize.y - 4.0f /* magic number */;
+            Vec2f baseline = Vec2f(x, y);
+            mFont->drawString(mText, baseline, gl::TextureFont::DrawOptions().scale(0.5f).pixelSnap(false));
+        } gl::disableAlphaBlending();
+    } gl::popModelView();
 }
 
 }}

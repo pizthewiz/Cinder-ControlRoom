@@ -37,16 +37,20 @@ inline void Slider::setValue(float value) {
 #pragma mark -
 
 void Slider::draw() {
-    // background
-    gl::color(Color::gray(216.0f/255.0f));
-    Rectf bounds = getBounds();
-    gl::drawSolidRect(bounds);
+    gl::pushModelView(); {
+        gl::translate(getFrame().getUpperLeft());
 
-    // fill
-    float width = bounds.getWidth() * (mValue - mMinimum) / mMaximum;
-    Rectf fillFrame = Rectf(Vec2f(0.0f, 0.0f), Vec2f(width, bounds.getHeight()));
-    gl::color(Color::gray(170.0f/255.0f));
-    gl::drawSolidRect(fillFrame);
+        // background
+        gl::color(Color::gray(216.0f/255.0f));
+        Rectf bounds = getBounds();
+        gl::drawSolidRect(bounds);
+
+        // fill
+        float width = bounds.getWidth() * (mValue - mMinimum) / mMaximum;
+        Rectf fillFrame = Rectf(Vec2f(0.0f, 0.0f), Vec2f(width, bounds.getHeight()));
+        gl::color(Color::gray(170.0f/255.0f));
+        gl::drawSolidRect(fillFrame);
+    } gl::popModelView();
 }
 
 #pragma mark -

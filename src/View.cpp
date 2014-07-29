@@ -76,12 +76,7 @@ void View::draw() {
                 continue;
             }
 
-            // TODO - move this into Control.cpp
-            gl::pushModelView(); {
-                gl::translate(view->getFrame().getUpperLeft());
-
-                view->draw();
-            } gl::popModelView();
+            view->draw();
         }
     } gl::popModelView();
 }

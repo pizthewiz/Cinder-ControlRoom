@@ -27,22 +27,26 @@ Button::~Button() {
 #pragma mark -
 
 void Button::draw() {
-    // background
-    gl::color(isHighlighted() ? Color::gray(170.0f/255.0f) : Color::gray(216.0f/255.0f));
-    Rectf bounds = getBounds();
-    gl::drawSolidRect(bounds);
+    gl::pushModelView(); {
+        gl::translate(getFrame().getUpperLeft());
 
-    // label
-    gl::enableAlphaBlending(); {
-        gl::color(isHighlighted() ? Color::gray(230.0f/255.0f) : Color::gray(74.0f/255.0f));
+        // background
+        gl::color(isHighlighted() ? Color::gray(170.0f/255.0f) : Color::gray(216.0f/255.0f));
+        Rectf bounds = getBounds();
+        gl::drawSolidRect(bounds);
 
-        Vec2f titleSize = mFont->measureString(mTitle) * 0.5f;
-        Rectf availableFrame = bounds.inflated(Vec2i(-5.0f, 0.0f));
-        float x = availableFrame.getMinX() + math<float>::max((availableFrame.getWidth() - titleSize.x) * 0.5f, 0.0f);
-        float y = availableFrame.getMinY() + math<float>::max((availableFrame.getHeight() - titleSize.y) * 0.5f, 0.0f) + titleSize.y - 4.0f /* magic number */;
-        Vec2f baseline = Vec2f(x, y);
-        mFont->drawString(mTitle, baseline, gl::TextureFont::DrawOptions().scale(0.5f).pixelSnap(false));
-    } gl::disableAlphaBlending();
+        // label
+        gl::enableAlphaBlending(); {
+            gl::color(isHighlighted() ? Color::gray(230.0f/255.0f) : Color::gray(74.0f/255.0f));
+
+            Vec2f titleSize = mFont->measureString(mTitle) * 0.5f;
+            Rectf availableFrame = bounds.inflated(Vec2i(-5.0f, 0.0f));
+            float x = availableFrame.getMinX() + math<float>::max((availableFrame.getWidth() - titleSize.x) * 0.5f, 0.0f);
+            float y = availableFrame.getMinY() + math<float>::max((availableFrame.getHeight() - titleSize.y) * 0.5f, 0.0f) + titleSize.y - 4.0f /* magic number */;
+            Vec2f baseline = Vec2f(x, y);
+            mFont->drawString(mTitle, baseline, gl::TextureFont::DrawOptions().scale(0.5f).pixelSnap(false));
+        } gl::disableAlphaBlending();
+    } gl::popModelView();
 }
 
 #pragma mark -
