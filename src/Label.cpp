@@ -17,7 +17,7 @@ LabelRef Label::create(const Rectf& frame, const std::string& text) {
 }
 
 Label::Label(const Rectf& frame, const std::string& text) : View(frame), mText(text), mAlignment(TextAlignment::Left), mEnabled(true) {
-    mFont = gl::TextureFont::create(Font("Menlo", 16.0f * 2.0f), gl::TextureFont::Format().enableMipmapping());
+    mFont = gl::TextureFont::create(Font("Menlo", 12.0f * 2.0f), gl::TextureFont::Format().enableMipmapping());
 }
 
 Label::~Label() {

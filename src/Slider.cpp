@@ -11,6 +11,7 @@
 namespace Cinder { namespace ControlRoom {
 
 using namespace ci;
+using namespace ci::app;
 
 SliderRef Slider::create(const Rectf& frame, float value, float minimum, float maximum) {
     return SliderRef(new Slider(frame, value, minimum, maximum));

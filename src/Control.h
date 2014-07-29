@@ -40,7 +40,7 @@ public:
     virtual void draw() = 0;
 
 protected:
-    Control(const Rectf& frame) : View(frame), mState(ControlState::Normal) {}
+    Control(const ci::Rectf& frame) : View(frame), mState(ControlState::Normal) {}
 
     ControlState mState;
 

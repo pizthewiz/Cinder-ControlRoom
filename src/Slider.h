@@ -16,7 +16,7 @@ typedef std::shared_ptr<class Slider> SliderRef;
 
 class Slider : public Control {
 public:
-    static SliderRef create(const Rectf& frame, float value, float minimum, float maximum);
+    static SliderRef create(const ci::Rectf& frame, float value, float minimum, float maximum);
     ~Slider();
 
     SliderRef getPtr() { return std::static_pointer_cast<Slider>(shared_from_this()); }
@@ -33,12 +33,12 @@ public:
 
     void draw();
 
-    void mouseDown(MouseEvent event);
-    void mouseDrag(MouseEvent event);
-    void mouseUp(MouseEvent event);
+    void mouseDown(ci::app::MouseEvent event);
+    void mouseDrag(ci::app::MouseEvent event);
+    void mouseUp(ci::app::MouseEvent event);
 
 private:
-    Slider(const Rectf& frame, float value, float minimum, float maximum);
+    Slider(const ci::Rectf& frame, float value, float minimum, float maximum);
 
     float mValue;
     float mMinimum;

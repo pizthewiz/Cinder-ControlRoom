@@ -19,7 +19,7 @@ enum class ButtonType {MomentaryPushIn};
 
 class Button : public Control {
 public:
-    static ButtonRef create(const Rectf& frame, const ButtonType& type, const std::string& title);
+    static ButtonRef create(const ci::Rectf& frame, const ButtonType& type, const std::string& title);
     ~Button();
 
     ButtonRef getPtr() { return std::static_pointer_cast<Button>(shared_from_this()); }
@@ -32,17 +32,17 @@ public:
 
     void draw();
 
-    void mouseDown(MouseEvent event);
-    void mouseDrag(MouseEvent event);
-    void mouseUp(MouseEvent event);
+    void mouseDown(ci::app::MouseEvent event);
+    void mouseDrag(ci::app::MouseEvent event);
+    void mouseUp(ci::app::MouseEvent event);
 
 private:
-    Button(const Rectf& frame, const ButtonType& type, const std::string& title);
+    Button(const ci::Rectf& frame, const ButtonType& type, const std::string& title);
 
     ButtonType mType;
     std::string mTitle;
 
-    gl::TextureFontRef mFont;
+    ci::gl::TextureFontRef mFont;
 };
 
 }}

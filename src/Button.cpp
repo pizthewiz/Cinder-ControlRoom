@@ -11,13 +11,14 @@
 namespace Cinder { namespace ControlRoom {
 
 using namespace ci;
+using namespace ci::app;
 
 ButtonRef Button::create(const Rectf& frame, const ButtonType& type, const std::string& title) {
     return ButtonRef(new Button(frame, type, title));
 }
 
 Button::Button(const Rectf& frame, const ButtonType& type, const std::string& title) : Control(frame), mType(type), mTitle(title) {
-    mFont = gl::TextureFont::create(Font("Menlo", 16.0f * 2.0f), gl::TextureFont::Format().enableMipmapping());
+    mFont = gl::TextureFont::create(Font("Menlo", 12.0f * 2.0f), gl::TextureFont::Format().enableMipmapping());
 }
 
 Button::~Button() {

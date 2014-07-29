@@ -16,13 +16,13 @@ typedef std::shared_ptr<class Module> ModuleRef;
 
 class Module : public View {
 public:
-    static ModuleRef create(const Rectf& frame);
+    static ModuleRef create(const ci::Rectf& frame);
     virtual ~Module();
 
     ModuleRef getPtr() { return std::static_pointer_cast<Module>(shared_from_this()); }
 
 protected:
-    Module(const Rectf& frame);
+    Module(const ci::Rectf& frame);
 
     ci::signals::scoped_connection mConnectionMouseDown, mConnectionMouseDrag, mConnectionMouseUp;
     ViewRef mTrackingView;

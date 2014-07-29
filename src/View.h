@@ -12,9 +12,6 @@
 
 namespace Cinder { namespace ControlRoom {
 
-using namespace ci;
-using namespace ci::app;
-
 typedef std::shared_ptr<class View> ViewRef;
 
 class View : public std::enable_shared_from_this<View> {
@@ -23,9 +20,9 @@ public:
 
     ViewRef getPtr() { return shared_from_this(); }
 
-    inline void setFrame(const Rectf& frame) { mFrame = frame; }
-    inline Rectf getFrame() const { return mFrame; }
-    inline Rectf getBounds() const { return Rectf(Vec2f::zero(), mFrame.getSize()); }
+    inline void setFrame(const ci::Rectf& frame) { mFrame = frame; }
+    inline ci::Rectf getFrame() const { return mFrame; }
+    inline ci::Rectf getBounds() const { return ci::Rectf(ci::Vec2f::zero(), mFrame.getSize()); }
 
     inline ViewRef getSuperview() const { return mSuperview; }
     inline std::vector<ViewRef> getSubviews() const { return mSubviews; }
@@ -33,33 +30,33 @@ public:
     void removeFromSuperview();
     bool isDescendantOfView(const ViewRef& view);
 
-    inline void setBackgroundColor(const Color& color) { mBackgroundColor = color; }
-    inline Color getBackgroundColor() const { return mBackgroundColor; }
+    inline void setBackgroundColor(const ci::Color& color) { mBackgroundColor = color; }
+    inline ci::Color getBackgroundColor() const { return mBackgroundColor; }
 
     inline void setHidden(bool hidden) { mHidden = hidden; }
     inline bool isHidden() const { return mHidden; }
 
     virtual void draw();
 
-    virtual void mouseDown(MouseEvent event) {}
-    virtual void mouseDrag(MouseEvent event) {}
-    virtual void mouseUp(MouseEvent event) {}
+    virtual void mouseDown(ci::app::MouseEvent event) {}
+    virtual void mouseDrag(ci::app::MouseEvent event) {}
+    virtual void mouseUp(ci::app::MouseEvent event) {}
 
-    Vec2i convertPointFromView(const Vec2f& point, const ViewRef& view);
-    Vec2i convertPointToView(const Vec2i& point, const ViewRef& view);
+    ci::Vec2i convertPointFromView(const ci::Vec2f& point, const ViewRef& view);
+    ci::Vec2i convertPointToView(const ci::Vec2i& point, const ViewRef& view);
 
 protected:
-    View(const Rectf& frame);
+    View(const ci::Rectf& frame);
 
     inline void setSuperview(const ViewRef& view) { mSuperview = view; }
     void removeSubview(const ViewRef& view);
 
-    Rectf mFrame;
+    ci::Rectf mFrame;
 
     ViewRef mSuperview;
     std::vector<ViewRef> mSubviews;
 
-    Color mBackgroundColor;
+    ci::Color mBackgroundColor;
     bool mHidden;
 };
 

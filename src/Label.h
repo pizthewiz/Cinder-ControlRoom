@@ -19,7 +19,7 @@ enum class TextAlignment {Left, Center, Right};
 
 class Label : public View {
 public:
-    static LabelRef create(const Rectf& frame, const std::string& text);
+    static LabelRef create(const ci::Rectf& frame, const std::string& text);
     ~Label();
 
     LabelRef getPtr() { return std::static_pointer_cast<Label>(shared_from_this()); }
@@ -36,13 +36,13 @@ public:
     void draw();
 
 protected:
-    Label(const Rectf& frame, const std::string& text);
+    Label(const ci::Rectf& frame, const std::string& text);
 
     std::string mText;
     TextAlignment mAlignment;
     bool mEnabled;
 
-    gl::TextureFontRef mFont;
+    ci::gl::TextureFontRef mFont;
 };
 
 }}
