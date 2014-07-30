@@ -26,7 +26,7 @@ View::~View() {
     removeFromSuperview();
 }
 
-#pragma mark -
+#pragma mark - HIERARCHY
 
 void View::addSubview(const ViewRef& view) {
     mSubviews.push_back(view);
@@ -37,6 +37,7 @@ void View::removeFromSuperview() {
     if (!mSuperview) {
         return;
     }
+
     mSuperview->removeSubview(shared_from_this());
 }
 
@@ -53,6 +54,7 @@ bool View::isDescendantOfView(const ViewRef& view) {
             status = true;
             break;
         }
+
         v = v->getSuperview();
     }
     return status;
@@ -83,6 +85,48 @@ void View::draw() {
 
 #pragma mark -
 
+void View::connectEventListeners() {
+    app::App* app = app::App::get();
+    mConnectionMouseDown = app->getWindow()->getSignalMouseDown().connect([&](MouseEvent event) {
+        mTrackingView = nullptr;
+
+        Vec2i point = convertPointFromView(event.getPos(), nullptr);
+        mTrackingView = hitTestPoint(point);
+        if (!mTrackingView) {
+            return;
+        }
+
+        mTrackingView->mouseDown(event);
+        event.setHandled();
+    });
+    mConnectionMouseDrag = app->getWindow()->getSignalMouseDrag().connect([&](MouseEvent event) {
+        if (!mTrackingView) {
+            return;
+        }
+
+        mTrackingView->mouseDrag(event);
+        event.setHandled();
+    });
+    mConnectionMouseUp = app->getWindow()->getSignalMouseUp().connect([&](MouseEvent event) {
+        if (!mTrackingView) {
+            return;
+        }
+
+        mTrackingView->mouseUp(event);
+        event.setHandled();
+
+        mTrackingView = nullptr;
+    });
+}
+
+void View::disconnectEventListeners() {
+    mConnectionMouseDown.disconnect();
+    mConnectionMouseDrag.disconnect();
+    mConnectionMouseUp.disconnect();
+}
+
+#pragma mark - COORDINATE CONVERSION
+
 Vec2i View::convertPointFromView(const Vec2f& point, const ViewRef& view) {
     // view to local
     Vec2f p = point;
@@ -108,68 +152,49 @@ Vec2i View::convertPointToView(const Vec2i& point, const ViewRef& view) {
     return p;
 }
 
-#pragma mark -
-
-void View::connectEventListeners() {
-    app::App* app = app::App::get();
-    mConnectionMouseDown = app->getWindow()->getSignalMouseDown().connect([&](MouseEvent event) {
-        mTrackingView = nullptr;
-
-        Vec2i point = convertPointFromView(event.getPos(), nullptr);
-        if (!getBounds().contains(point)) {
-            return;
-        }
-
-        for (const ViewRef& view : mSubviews) {
-            if (!view->getFrame().contains(point) || view->isHidden()) {
-                continue;
-            }
-
-            // TODO - reject on disabled controls
-
-            mTrackingView = view;
-            break;
-        }
-
-        if (mTrackingView) {
-            mTrackingView->mouseDown(event);
-        }
-        event.setHandled();
-    });
-    mConnectionMouseDrag = app->getWindow()->getSignalMouseDrag().connect([&](MouseEvent event) {
-        if (!mTrackingView) {
-            return;
-        }
-
-        mTrackingView->mouseDrag(event);
-        event.setHandled();
-    });
-    mConnectionMouseUp = app->getWindow()->getSignalMouseUp().connect([&](MouseEvent event) {
-        if (!mTrackingView) {
-            return;
-        }
-
-        mTrackingView->mouseUp(event);
-        event.setHandled();
-        
-        mTrackingView = nullptr;
-    });
-}
-
-void View::disconnectEventListeners() {
-    mConnectionMouseDown.disconnect();
-    mConnectionMouseDrag.disconnect();
-    mConnectionMouseUp.disconnect();
-}
-
 #pragma mark - PRIVATE
 
 void View::removeSubview(const ViewRef& view) {
     if (!view) {
         return;
     }
+
     mSubviews.erase(std::find(mSubviews.begin(), mSubviews.end(), view));
     view->setSuperview(nullptr);
+}
+
+ViewRef View::hitTestPoint(const ci::Vec2i& point) {
+    if (!isPointInsideBounds(point)) {
+        return nullptr;
+    }
+
+    ViewRef view = nullptr;
+    for (const ViewRef& v : mSubviews) {
+        if (v->isHidden()) {
+            continue;
+        }
+
+        Vec2i p = v->convertPointFromView(point, shared_from_this());
+        if (!v->isPointInsideBounds(p)) {
+            continue;
+        }
+
+        view = v;
+        break;
+    }
+
+    if (!view) {
+        view = shared_from_this();
+    } else {
+        Vec2i p = view->convertPointFromView(point, shared_from_this());
+        view->hitTestPoint(p);
+    }
+
+    return view;
+}
+
+bool View::isPointInsideBounds(const ci::Vec2i& point) {
+    return getBounds().contains(point);
 }
 
 }}

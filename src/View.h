@@ -39,15 +39,15 @@ public:
 
     virtual void draw();
 
-    ci::Vec2i convertPointFromView(const ci::Vec2f& point, const ViewRef& view);
-    ci::Vec2i convertPointToView(const ci::Vec2i& point, const ViewRef& view);
+    void connectEventListeners();
+    void disconnectEventListeners();
 
     virtual void mouseDown(ci::app::MouseEvent event) {}
     virtual void mouseDrag(ci::app::MouseEvent event) {}
     virtual void mouseUp(ci::app::MouseEvent event) {}
 
-    void connectEventListeners();
-    void disconnectEventListeners();
+    ci::Vec2i convertPointFromView(const ci::Vec2f& point, const ViewRef& view);
+    ci::Vec2i convertPointToView(const ci::Vec2i& point, const ViewRef& view);
 
 protected:
     View(const ci::Rectf& frame);
@@ -55,9 +55,14 @@ protected:
     inline void setSuperview(const ViewRef& view) { mSuperview = view; }
     void removeSubview(const ViewRef& view);
 
+    ViewRef hitTestPoint(const ci::Vec2i& point);
+    bool isPointInsideBounds(const ci::Vec2i& point);
+
     ci::Rectf mFrame;
+
     ViewRef mSuperview;
     std::vector<ViewRef> mSubviews;
+
     ci::Color mBackgroundColor;
     bool mHidden;
 
