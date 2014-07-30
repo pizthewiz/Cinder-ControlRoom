@@ -4,7 +4,6 @@
 - View Hierarchy And Drawing
 - Controls
 - Mouse Event Routing
-- Modules
 
 ### GREETZ
 - Apple's excellent [AppKit](https://developer.apple.com/library/mac/documentation/cocoa/reference/applicationkit/objc_classic/_index.html) and [UIKit](https://developer.apple.com/library/ios/documentation/uikit/reference/uikit_framework/_index.html)
