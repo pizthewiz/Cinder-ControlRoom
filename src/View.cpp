@@ -42,7 +42,7 @@ void View::removeFromSuperview() {
 }
 
 bool View::isDescendantOfView(const ViewRef& view) {
-    // 💀 - view of nullptr is used to represent window content view
+    // 💀 - nullptr is used to represent window's content view, i.e. the root view
     if (!view) {
         return true;
     }
@@ -50,12 +50,13 @@ bool View::isDescendantOfView(const ViewRef& view) {
     bool status = false;
     ViewRef v = getSuperview();
     while (v) {
-        if (v == view) {
-            status = true;
-            break;
+        if (v != view) {
+            v = v->getSuperview();
+            continue;
         }
 
-        v = v->getSuperview();
+        status = true;
+        break;
     }
     return status;
 }
