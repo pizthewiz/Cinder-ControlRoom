@@ -118,6 +118,14 @@ void View::connectEventListeners() {
         mTrackingView->mouseDrag(event);
         event.setHandled();
     });
+    mConnectionMouseMove = app->getWindow()->getSignalMouseMove().connect([&](MouseEvent event) {
+        if (!mTrackingView) {
+            return;
+        }
+
+        mTrackingView->mouseMove(event);
+        event.setHandled();
+    });
 }
 
 void View::disconnectEventListeners() {
