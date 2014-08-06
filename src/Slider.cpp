@@ -75,20 +75,6 @@ void Slider::mouseDown(MouseEvent event) {
     }
 }
 
-void Slider::mouseDrag(MouseEvent event) {
-    if (!isEnabled()) {
-        return;
-    }
-
-    Vec2i point = convertPointFromView(event.getPos(), nullptr);
-    float value = (float)point.x / mFrame.getWidth() * (mMaximum - mMinimum);
-    setValue(value);
-
-    if (mContinuous && mControlEventHandlerMap.find(ControlEvent::ValueChanged) != mControlEventHandlerMap.end()) {
-        mControlEventHandlerMap[ControlEvent::ValueChanged](getPtr());
-    }
-}
-
 void Slider::mouseUp(MouseEvent event) {
     if (!isEnabled()) {
         return;
@@ -105,6 +91,20 @@ void Slider::mouseUp(MouseEvent event) {
     }
 
     mTracking = false;
+}
+
+void Slider::mouseDrag(MouseEvent event) {
+    if (!isEnabled()) {
+        return;
+    }
+
+    Vec2i point = convertPointFromView(event.getPos(), nullptr);
+    float value = (float)point.x / mFrame.getWidth() * (mMaximum - mMinimum);
+    setValue(value);
+
+    if (mContinuous && mControlEventHandlerMap.find(ControlEvent::ValueChanged) != mControlEventHandlerMap.end()) {
+        mControlEventHandlerMap[ControlEvent::ValueChanged](getPtr());
+    }
 }
 
 }}

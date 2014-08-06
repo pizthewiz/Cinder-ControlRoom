@@ -34,8 +34,8 @@ public:
     void draw();
 
     void mouseDown(ci::app::MouseEvent event);
-    void mouseDrag(ci::app::MouseEvent event);
     void mouseUp(ci::app::MouseEvent event);
+    void mouseDrag(ci::app::MouseEvent event);
 
 private:
     Slider(const ci::Rectf& frame, float value, float minimum, float maximum);

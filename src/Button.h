@@ -33,8 +33,8 @@ public:
     void draw();
 
     void mouseDown(ci::app::MouseEvent event);
-    void mouseDrag(ci::app::MouseEvent event);
     void mouseUp(ci::app::MouseEvent event);
+    void mouseDrag(ci::app::MouseEvent event);
 
 private:
     Button(const ci::Rectf& frame, const ButtonType& type, const std::string& title);

@@ -63,17 +63,6 @@ void Button::mouseDown(MouseEvent event) {
     }
 }
 
-void Button::mouseDrag(MouseEvent event) {
-    if (!isEnabled()) {
-        return;
-    }
-
-    Vec2i point = convertPointFromView(event.getPos(), nullptr);
-    if (getBounds().contains(point) != isHighlighted()) {
-        mState = mState == ControlState::Normal ? ControlState::Highlighted : ControlState::Normal;
-    }
-}
-
 void Button::mouseUp(MouseEvent event) {
     if (!isEnabled()) {
         return;
@@ -86,6 +75,17 @@ void Button::mouseUp(MouseEvent event) {
     }
 
     mState = ControlState::Normal;
+}
+
+void Button::mouseDrag(MouseEvent event) {
+    if (!isEnabled()) {
+        return;
+    }
+
+    Vec2i point = convertPointFromView(event.getPos(), nullptr);
+    if (getBounds().contains(point) != isHighlighted()) {
+        mState = mState == ControlState::Normal ? ControlState::Highlighted : ControlState::Normal;
+    }
 }
 
 }}

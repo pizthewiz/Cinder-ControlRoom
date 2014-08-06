@@ -100,14 +100,6 @@ void View::connectEventListeners() {
         mTrackingView->mouseDown(event);
         event.setHandled();
     });
-    mConnectionMouseDrag = app->getWindow()->getSignalMouseDrag().connect([&](MouseEvent event) {
-        if (!mTrackingView) {
-            return;
-        }
-
-        mTrackingView->mouseDrag(event);
-        event.setHandled();
-    });
     mConnectionMouseUp = app->getWindow()->getSignalMouseUp().connect([&](MouseEvent event) {
         if (!mTrackingView) {
             return;
@@ -118,12 +110,21 @@ void View::connectEventListeners() {
 
         mTrackingView = nullptr;
     });
+    mConnectionMouseDrag = app->getWindow()->getSignalMouseDrag().connect([&](MouseEvent event) {
+        if (!mTrackingView) {
+            return;
+        }
+
+        mTrackingView->mouseDrag(event);
+        event.setHandled();
+    });
 }
 
 void View::disconnectEventListeners() {
     mConnectionMouseDown.disconnect();
     mConnectionMouseDrag.disconnect();
     mConnectionMouseUp.disconnect();
+    mConnectionMouseMove.disconnect();
 }
 
 #pragma mark - COORDINATE CONVERSION
