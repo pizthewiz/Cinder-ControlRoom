@@ -197,7 +197,7 @@ ViewRef View::hitTestPoint(const ci::Vec2i& point) {
         view = shared_from_this();
     } else {
         Vec2i p = view->convertPointFromView(point, shared_from_this());
-        view->hitTestPoint(p);
+        view = view->hitTestPoint(p);
     }
 
     return view;
