@@ -29,6 +29,12 @@ View::~View() {
 #pragma mark - HIERARCHY
 
 void View::addSubview(const ViewRef& view) {
+    // prevent cycle
+    if (isDescendantOfView(view)) {
+        // TODO - throw?
+        return;
+    }
+
     mSubviews.push_back(view);
     view->setSuperview(shared_from_this());
 }

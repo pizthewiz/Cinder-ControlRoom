@@ -14,7 +14,7 @@
 
 # VIEW
 - implement point conversions
-- prevent hierarchy cycles
+- consider tracking areas instead of just mouseMoved
 
 # SCROLLVIEW
 - derrived class, proportional scrollbars
