@@ -117,6 +117,14 @@ void View::connectEventListeners() {
         mTrackingView = nullptr;
     });
     mConnectionMouseWheel = app->getWindow()->getSignalMouseWheel().connect([&](MouseEvent event) {
+        if (!mTrackingOverView) {
+            return;
+        }
+
+        mTrackingOverView->mouseWheel(event);
+        event.setHandled();
+    });
+    mConnectionMouseMove = app->getWindow()->getSignalMouseMove().connect([&](MouseEvent event) {
         mTrackingOverView = nullptr;
 
         Vec2i point = convertPointFromView(event.getPos(), nullptr);
@@ -125,7 +133,7 @@ void View::connectEventListeners() {
             return;
         }
 
-        mTrackingOverView->mouseWheel(event);
+        mTrackingOverView->mouseMove(event);
         event.setHandled();
     });
     mConnectionMouseDrag = app->getWindow()->getSignalMouseDrag().connect([&](MouseEvent event) {
@@ -142,6 +150,7 @@ void View::disconnectEventListeners() {
     mConnectionMouseDown.disconnect();
     mConnectionMouseUp.disconnect();
     mConnectionMouseWheel.disconnect();
+    mConnectionMouseMove.disconnect();
     mConnectionMouseDrag.disconnect();
 }
 

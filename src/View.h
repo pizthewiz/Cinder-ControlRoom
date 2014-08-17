@@ -45,6 +45,7 @@ public:
     virtual void mouseDown(ci::app::MouseEvent event) {}
     virtual void mouseUp(ci::app::MouseEvent event) {}
     virtual void mouseWheel(ci::app::MouseEvent event) {}
+    virtual void mouseMove(ci::app::MouseEvent event) {}
     virtual void mouseDrag(ci::app::MouseEvent event) {}
 
     ci::Vec2i convertPointFromView(const ci::Vec2f& point, const ViewRef& view);
@@ -70,6 +71,7 @@ protected:
     ci::signals::scoped_connection mConnectionMouseDown;
     ci::signals::scoped_connection mConnectionMouseUp;
     ci::signals::scoped_connection mConnectionMouseWheel;
+    ci::signals::scoped_connection mConnectionMouseMove;
     ci::signals::scoped_connection mConnectionMouseDrag;
     ViewRef mTrackingView;
     ViewRef mTrackingOverView;
