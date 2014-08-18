@@ -1,11 +1,10 @@
 
 # VIEW
-- implement point conversions
 - some sort of canonical size from metrics -sizeToFit, -sizeThatFits:, intrinsicContentSize
 
 # CONTENT VIEW
 - route key events to first responder
-- tracking areas instead of just mouseMoved
+- tracking areas instead of just mouseMove
 
 # SCROLLVIEW
 - derrived class, proportional scrollbars
@@ -28,3 +27,4 @@
 - support the disabled state across the board
 - come up with some sort of theme handling
 - support high density with a content scale other than 2, check `getWindowContentScale()`
+- inline documentation

@@ -160,25 +160,24 @@ Vec2i View::convertPointFromView(const Vec2f& point, const ViewRef& view) {
     // view to local
     Vec2f p = point;
     if (isDescendantOfView(view)) {
-        p -= mFrame.getUpperLeft();
-        if (mSuperview && mSuperview != view) {
-            p = mSuperview->convertPointFromView(p, view);
+        ViewRef v = shared_from_this();
+        while (v && v != view) {
+            p -= v->getFrame().getUpperLeft();
+            v = v->getSuperview();
         }
     } else {
-        // TODO - implement
+        ViewRef v = view;
+        while (v && v != shared_from_this()) {
+            p += v->getFrame().getUpperLeft();
+            v = v->getSuperview();
+        }
     }
     return p;
 }
 
 Vec2i View::convertPointToView(const Vec2i& point, const ViewRef& view) {
     // local to view
-    Vec2i p = point;
-    if (isDescendantOfView(view)) {
-        // TODO - implement
-    } else {
-        // TODO - implement
-    }
-    return p;
+    return view->convertPointFromView(point, shared_from_this());
 }
 
 #pragma mark - PRIVATE
