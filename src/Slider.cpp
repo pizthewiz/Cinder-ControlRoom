@@ -46,7 +46,7 @@ void Slider::draw() {
         gl::drawSolidRect(bounds);
 
         // fill
-        float width = bounds.getWidth() * (mValue - mMinimum) / mMaximum;
+        float width = bounds.getWidth() * (mValue - mMinimum) / (mMaximum - mMinimum);
         Rectf fillFrame = Rectf(Vec2f(0.0f, 0.0f), Vec2f(width, bounds.getHeight()));
         gl::color(Color::gray(170.0f/255.0f));
         gl::drawSolidRect(fillFrame);
@@ -63,7 +63,7 @@ void Slider::mouseDown(MouseEvent event) {
     mTracking = true;
 
     Vec2i point = convertPointFromView(event.getPos(), nullptr);
-    float value = (float)point.x / mFrame.getWidth() * (mMaximum - mMinimum);
+    float value = mMinimum + (float)point.x / mFrame.getWidth() * (mMaximum - mMinimum);
     setValue(value);
 
     if (mControlEventHandlerMap.find(ControlEvent::Down) != mControlEventHandlerMap.end()) {
@@ -99,7 +99,7 @@ void Slider::mouseDrag(MouseEvent event) {
     }
 
     Vec2i point = convertPointFromView(event.getPos(), nullptr);
-    float value = (float)point.x / mFrame.getWidth() * (mMaximum - mMinimum);
+    float value = mMinimum + (float)point.x / mFrame.getWidth() * (mMaximum - mMinimum);
     setValue(value);
 
     if (mContinuous && mControlEventHandlerMap.find(ControlEvent::ValueChanged) != mControlEventHandlerMap.end()) {
