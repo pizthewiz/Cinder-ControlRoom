@@ -26,8 +26,10 @@ LabelRef label = Label::create(Rectf(xAlt, y, xAlt + controlWidthAlt, y + height
 inspectorView->addSubview(label);
 
 // add a slider
-SliderRef slider = Slider::create(Rectf(10.0f, 10.0f, frame.getWidth - 10.0f, 38.0f), value, min, max);
+Rectf sliderFrame = Rectf(10.0f, 10.0f, frame.getWidth - 10.0f, 38.0f);
+SliderRef slider = Slider::create(sliderFrame, value, min, max);
 inspectorView->addSubview(slider);
+// connect value changed event handler
 slider->connectControlEventHandler(ControlEvent::ValueChanged, [&, label](const ControlRef& control) {
   SliderRef s = std::static_pointer_cast<Slider>(control);
   float value = s->getValue();
