@@ -21,6 +21,7 @@
 # SLIDER
 - shift and option accelerators
 - variant that takes a pointer to a float value
+- double click to revert to default
 
 # GENERAL
 - migrate texture font to a singleton, share resources
