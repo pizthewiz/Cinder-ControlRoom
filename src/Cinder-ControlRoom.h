@@ -8,10 +8,6 @@
 
 #pragma once
 
-#if !defined(CINDER_MAC)
-    #error Target platform unsupported by Cinder-ControlRoom
-#endif
-
 #include "View.h"
 #include "Label.h"
 #include "Control.h"
