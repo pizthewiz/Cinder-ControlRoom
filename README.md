@@ -6,11 +6,12 @@
 - Mouse Event Handling
 - Reusable Controls
 
-### USAGE
+*NOTE* - `Cinder-ControlRoom` is to be used with the heir apparent [glNext](https://github.com/cinder/Cinder/tree/glNext) Cinder branch.
 
+### USAGE
 ```C++
 // create root view
-Rectf frame = Rectf(Vec2i::zero(), Vec2i(300, getWindowHeight()));
+Rectf frame = Rectf(ivec2(0, 0), ivec2(300, getWindowHeight()));
 ViewRef inspectorView = View::create(frame);
 
 // connect mouse event listeners, should only be done on the root view
