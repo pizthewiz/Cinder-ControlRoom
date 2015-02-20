@@ -3,7 +3,7 @@
 //  Cinder-ControlRoom
 //
 //  Created by Jean-Pierre Mouilleseaux on 02 Jul 2014.
-//  Copyright 2014 Chorded Constructions. All rights reserved.
+//  Copyright 2014-2015 Chorded Constructions. All rights reserved.
 //
 
 #include "Label.h"
@@ -32,7 +32,7 @@ void Label::draw() {
         gl::enableAlphaBlending(); {
             gl::color(Color::gray(74.0f/255.0f));
 
-            Vec2f textSize = mFont->measureString(mText) * 0.5f;
+            vec2 textSize = mFont->measureString(mText) * 0.5f;
             Rectf availableFrame = getBounds();
             float x = availableFrame.getMinX();
             if (mAlignment == TextAlignment::Center) {
@@ -41,7 +41,7 @@ void Label::draw() {
                 x = math<float>::max(availableFrame.getMaxX() - textSize.x, 0.0f);
             }
             float y = availableFrame.getMinY() + math<float>::max((availableFrame.getHeight() - textSize.y) * 0.5f, 0.0f) + textSize.y - 4.0f /* magic number */;
-            Vec2f baseline = Vec2f(x, y);
+            vec2 baseline = vec2(x, y);
             mFont->drawString(mText, baseline, gl::TextureFont::DrawOptions().scale(0.5f).pixelSnap(false));
         } gl::disableAlphaBlending();
     } gl::popModelView();

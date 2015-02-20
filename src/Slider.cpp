@@ -3,7 +3,7 @@
 //  Cinder-ControlRoom
 //
 //  Created by Jean-Pierre Mouilleseaux on 01 Jul 2014.
-//  Copyright 2014 Chorded Constructions. All rights reserved.
+//  Copyright 2014-2015 Chorded Constructions. All rights reserved.
 //
 
 #include "Slider.h"
@@ -47,7 +47,7 @@ void Slider::draw() {
 
         // fill
         float width = bounds.getWidth() * (mValue - mMinimum) / (mMaximum - mMinimum);
-        Rectf fillFrame = Rectf(Vec2f(0.0f, 0.0f), Vec2f(width, bounds.getHeight()));
+        Rectf fillFrame = Rectf(vec2(0.0f, 0.0f), vec2(width, bounds.getHeight()));
         gl::color(Color::gray(170.0f/255.0f));
         gl::drawSolidRect(fillFrame);
     } gl::popModelView();
@@ -62,7 +62,7 @@ void Slider::mouseDown(MouseEvent event) {
 
     mTracking = true;
 
-    Vec2i point = convertPointFromView(event.getPos(), nullptr);
+    ivec2 point = convertPointFromView(event.getPos(), nullptr);
     float value = mMinimum + (float)point.x / mFrame.getWidth() * (mMaximum - mMinimum);
     setValue(value);
 
@@ -80,7 +80,7 @@ void Slider::mouseUp(MouseEvent event) {
         return;
     }
 
-    Vec2i point = convertPointFromView(event.getPos(), nullptr);
+    ivec2 point = convertPointFromView(event.getPos(), nullptr);
     ControlEvent e = getBounds().contains(point) ? ControlEvent::UpInside : ControlEvent::UpOutside;
     if (mControlEventHandlerMap.find(e) != mControlEventHandlerMap.end()) {
         mControlEventHandlerMap[e](getPtr());
@@ -98,7 +98,7 @@ void Slider::mouseDrag(MouseEvent event) {
         return;
     }
 
-    Vec2i point = convertPointFromView(event.getPos(), nullptr);
+    ivec2 point = convertPointFromView(event.getPos(), nullptr);
     float value = mMinimum + (float)point.x / mFrame.getWidth() * (mMaximum - mMinimum);
     setValue(value);
 

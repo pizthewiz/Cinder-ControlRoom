@@ -3,11 +3,10 @@
 //  Cinder-ControlRoom
 //
 //  Created by Jean-Pierre Mouilleseaux on 02 Jul 2014.
-//  Copyright 2014 Chorded Constructions. All rights reserved.
+//  Copyright 2014-2015 Chorded Constructions. All rights reserved.
 //
 
 #include "View.h"
-
 
 namespace Cinder { namespace ControlRoom {
 
@@ -97,7 +96,7 @@ void View::connectEventListeners() {
     mConnectionMouseDown = app->getWindow()->getSignalMouseDown().connect([&](MouseEvent event) {
         mTrackingView = nullptr;
 
-        Vec2i point = convertPointFromView(event.getPos(), nullptr);
+        ivec2 point = convertPointFromView(event.getPos(), nullptr);
         mTrackingView = hitTestPoint(point);
         if (!mTrackingView) {
             return;
@@ -127,7 +126,7 @@ void View::connectEventListeners() {
     mConnectionMouseMove = app->getWindow()->getSignalMouseMove().connect([&](MouseEvent event) {
         mTrackingOverView = nullptr;
 
-        Vec2i point = convertPointFromView(event.getPos(), nullptr);
+        ivec2 point = convertPointFromView(event.getPos(), nullptr);
         mTrackingOverView = hitTestPoint(point);
         if (!mTrackingOverView) {
             return;
@@ -156,9 +155,9 @@ void View::disconnectEventListeners() {
 
 #pragma mark - COORDINATE CONVERSION
 
-Vec2i View::convertPointFromView(const Vec2f& point, const ViewRef& view) {
+ivec2 View::convertPointFromView(const vec2& point, const ViewRef& view) {
     // view to local
-    Vec2f p = point;
+    vec2 p = point;
     if (isDescendantOfView(view)) {
         ViewRef v = shared_from_this();
         while (v && v != view) {
@@ -175,7 +174,7 @@ Vec2i View::convertPointFromView(const Vec2f& point, const ViewRef& view) {
     return p;
 }
 
-Vec2i View::convertPointToView(const Vec2i& point, const ViewRef& view) {
+ivec2 View::convertPointToView(const ivec2& point, const ViewRef& view) {
     // local to view
     return view->convertPointFromView(point, shared_from_this());
 }
@@ -191,7 +190,7 @@ void View::removeSubview(const ViewRef& view) {
     view->setSuperview(nullptr);
 }
 
-ViewRef View::hitTestPoint(const ci::Vec2i& point) {
+ViewRef View::hitTestPoint(const ci::ivec2& point) {
     if (!isPointInsideBounds(point)) {
         return nullptr;
     }
@@ -202,7 +201,7 @@ ViewRef View::hitTestPoint(const ci::Vec2i& point) {
             continue;
         }
 
-        Vec2i p = v->convertPointFromView(point, shared_from_this());
+        ivec2 p = v->convertPointFromView(point, shared_from_this());
         if (!v->isPointInsideBounds(p)) {
             continue;
         }
@@ -214,14 +213,14 @@ ViewRef View::hitTestPoint(const ci::Vec2i& point) {
     if (!view) {
         view = shared_from_this();
     } else {
-        Vec2i p = view->convertPointFromView(point, shared_from_this());
+        ivec2 p = view->convertPointFromView(point, shared_from_this());
         view = view->hitTestPoint(p);
     }
 
     return view;
 }
 
-bool View::isPointInsideBounds(const ci::Vec2i& point) {
+bool View::isPointInsideBounds(const ci::ivec2& point) {
     return getBounds().contains(point);
 }
 
