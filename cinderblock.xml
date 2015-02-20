@@ -10,7 +10,7 @@
     >
     <supports os="macosx" />
     <header>src/Cinder-ControlRoom.h</header>
-    <headerPattern>src/*.h</headerPattern>
+    <headerPattern>include/*.h</headerPattern>
     <sourcePattern>src/*.cpp</sourcePattern>
     <copyExclude>samples</copyExclude>
 </block>
