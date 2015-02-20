@@ -3,7 +3,7 @@
 //  Cinder-ControlRoom
 //
 //  Created by Jean-Pierre Mouilleseaux on 02 Jul 2014.
-//  Copyright 2014 Chorded Constructions. All rights reserved.
+//  Copyright 2014-2015 Chorded Constructions. All rights reserved.
 //
 
 #include "Button.h"
@@ -39,11 +39,11 @@ void Button::draw() {
         gl::enableAlphaBlending(); {
             gl::color(isHighlighted() ? Color::gray(230.0f/255.0f) : Color::gray(74.0f/255.0f));
 
-            Vec2f titleSize = mFont->measureString(mTitle) * 0.5f;
-            Rectf availableFrame = bounds.inflated(Vec2i(-5.0f, 0.0f));
+            vec2 titleSize = mFont->measureString(mTitle) * 0.5f;
+            Rectf availableFrame = bounds.inflated(ivec2(-5.0f, 0.0f));
             float x = availableFrame.getMinX() + math<float>::max((availableFrame.getWidth() - titleSize.x) * 0.5f, 0.0f);
             float y = availableFrame.getMinY() + math<float>::max((availableFrame.getHeight() - titleSize.y) * 0.5f, 0.0f) + titleSize.y - 4.0f /* magic number */;
-            Vec2f baseline = Vec2f(x, y);
+            vec2 baseline = vec2(x, y);
             mFont->drawString(mTitle, baseline, gl::TextureFont::DrawOptions().scale(0.5f).pixelSnap(false));
         } gl::disableAlphaBlending();
     } gl::popModelView();
@@ -68,7 +68,7 @@ void Button::mouseUp(MouseEvent event) {
         return;
     }
 
-    Vec2i point = convertPointFromView(event.getPos(), nullptr);
+    ivec2 point = convertPointFromView(event.getPos(), nullptr);
     ControlEvent e = getBounds().contains(point) ? ControlEvent::UpInside : ControlEvent::UpOutside;
     if (mControlEventHandlerMap.find(e) != mControlEventHandlerMap.end()) {
         mControlEventHandlerMap[e](getPtr());
@@ -82,7 +82,7 @@ void Button::mouseDrag(MouseEvent event) {
         return;
     }
 
-    Vec2i point = convertPointFromView(event.getPos(), nullptr);
+    ivec2 point = convertPointFromView(event.getPos(), nullptr);
     if (getBounds().contains(point) != isHighlighted()) {
         mState = mState == ControlState::Normal ? ControlState::Highlighted : ControlState::Normal;
     }

@@ -3,12 +3,13 @@
 //  Cinder-ControlRoom
 //
 //  Created by Jean-Pierre Mouilleseaux on 02 Jul 2014.
-//  Copyright 2014 Chorded Constructions. All rights reserved.
+//  Copyright 2014-2015 Chorded Constructions. All rights reserved.
 //
 
 #pragma once
 
 #include "cinder/app/App.h"
+#include "cinder/gl/gl.h"
 
 namespace Cinder { namespace ControlRoom {
 
@@ -23,7 +24,7 @@ public:
 
     inline void setFrame(const ci::Rectf& frame) { mFrame = frame; }
     inline ci::Rectf getFrame() const { return mFrame; }
-    inline ci::Rectf getBounds() const { return ci::Rectf(ci::Vec2f::zero(), mFrame.getSize()); }
+    inline ci::Rectf getBounds() const { return ci::Rectf(ci::vec2(0), mFrame.getSize()); }
 
     inline ViewRef getSuperview() const { return mSuperview; }
     inline std::vector<ViewRef> getSubviews() const { return mSubviews; }
@@ -48,8 +49,8 @@ public:
     virtual void mouseMove(ci::app::MouseEvent event) {}
     virtual void mouseDrag(ci::app::MouseEvent event) {}
 
-    ci::Vec2i convertPointFromView(const ci::Vec2f& point, const ViewRef& view);
-    ci::Vec2i convertPointToView(const ci::Vec2i& point, const ViewRef& view);
+    ci::ivec2 convertPointFromView(const ci::vec2& point, const ViewRef& view);
+    ci::ivec2 convertPointToView(const ci::ivec2& point, const ViewRef& view);
 
 protected:
     View(const ci::Rectf& frame);
@@ -57,8 +58,8 @@ protected:
     inline void setSuperview(const ViewRef& view) { mSuperview = view; }
     void removeSubview(const ViewRef& view);
 
-    ViewRef hitTestPoint(const ci::Vec2i& point);
-    bool isPointInsideBounds(const ci::Vec2i& point);
+    ViewRef hitTestPoint(const ci::ivec2& point);
+    bool isPointInsideBounds(const ci::ivec2& point);
 
     ci::Rectf mFrame;
 
