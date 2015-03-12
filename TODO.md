@@ -8,10 +8,11 @@
 
 # SCROLLVIEW
 - derived class, proportional scrollbars
+- use [glScissor](https://www.opengl.org/sdk/docs/man/html/glScissor.xhtml) to ignore _clipped_ content
 
 # LABEL
 - expose different sizes via enum
-- truncate text with elipsis
+- truncate text with ellipsis
 - calculate baseline on title/frame change and cache
 
 # BUTTON
