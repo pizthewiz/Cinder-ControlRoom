@@ -92,7 +92,7 @@ void View::draw() {
 #pragma mark -
 
 void View::connectEventListeners() {
-    app::App* app = app::App::get();
+    app::AppBase* app = app::App::get();
     mConnectionMouseDown = app->getWindow()->getSignalMouseDown().connect([&](MouseEvent event) {
         mTrackingView = nullptr;
 

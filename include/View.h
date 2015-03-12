@@ -69,11 +69,11 @@ protected:
     ci::Color mBackgroundColor;
     bool mHidden;
 
-    ci::signals::scoped_connection mConnectionMouseDown;
-    ci::signals::scoped_connection mConnectionMouseUp;
-    ci::signals::scoped_connection mConnectionMouseWheel;
-    ci::signals::scoped_connection mConnectionMouseMove;
-    ci::signals::scoped_connection mConnectionMouseDrag;
+    ci::signals::ScopedConnection mConnectionMouseDown;
+    ci::signals::ScopedConnection mConnectionMouseUp;
+    ci::signals::ScopedConnection mConnectionMouseWheel;
+    ci::signals::ScopedConnection mConnectionMouseMove;
+    ci::signals::ScopedConnection mConnectionMouseDrag;
     ViewRef mTrackingView;
     ViewRef mTrackingOverView;
 };
