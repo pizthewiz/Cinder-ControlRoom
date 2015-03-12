@@ -11,7 +11,7 @@
 ### USAGE
 ```C++
 // create root view
-Rectf frame = Rectf(ivec2(0, 0), ivec2(300, getWindowHeight()));
+Rectf frame = Rectf(ivec2(0), ivec2(300, getWindowHeight()));
 ViewRef inspectorView = View::create(frame);
 
 // connect mouse event listeners, should only be done on the root view
