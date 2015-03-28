@@ -9,7 +9,6 @@
 #pragma once
 
 #include "View.h"
-#include "cinder/gl/TextureFont.h"
 
 namespace Cinder { namespace ControlRoom {
 
