@@ -55,7 +55,7 @@ void Slider::draw() {
 
 #pragma mark -
 
-void Slider::mouseDown(MouseEvent event) {
+void Slider::mouseDown(const MouseEvent& event) {
     if (!isEnabled()) {
         return;
     }
@@ -75,7 +75,7 @@ void Slider::mouseDown(MouseEvent event) {
     }
 }
 
-void Slider::mouseUp(MouseEvent event) {
+void Slider::mouseUp(const MouseEvent& event) {
     if (!isEnabled()) {
         return;
     }
@@ -93,7 +93,7 @@ void Slider::mouseUp(MouseEvent event) {
     mTracking = false;
 }
 
-void Slider::mouseDrag(MouseEvent event) {
+void Slider::mouseDrag(const MouseEvent& event) {
     if (!isEnabled()) {
         return;
     }

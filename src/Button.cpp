@@ -13,11 +13,11 @@ namespace Cinder { namespace ControlRoom {
 using namespace ci;
 using namespace ci::app;
 
-ButtonRef Button::create(const Rectf& frame, const ButtonType& type, const std::string& title) {
+ButtonRef Button::create(const Rectf& frame, const ButtonType type, const std::string& title) {
     return ButtonRef(new Button(frame, type, title));
 }
 
-Button::Button(const Rectf& frame, const ButtonType& type, const std::string& title) : Control(frame), mType(type), mTitle(title) {
+Button::Button(const Rectf& frame, const ButtonType type, const std::string& title) : Control(frame), mType(type), mTitle(title) {
     mFont = gl::TextureFont::create(Font("Menlo", 12.0f * 2.0f), gl::TextureFont::Format().enableMipmapping());
 }
 
@@ -51,7 +51,7 @@ void Button::draw() {
 
 #pragma mark -
 
-void Button::mouseDown(MouseEvent event) {
+void Button::mouseDown(const MouseEvent& event) {
     if (!isEnabled()) {
         return;
     }
@@ -63,7 +63,7 @@ void Button::mouseDown(MouseEvent event) {
     }
 }
 
-void Button::mouseUp(MouseEvent event) {
+void Button::mouseUp(const MouseEvent& event) {
     if (!isEnabled()) {
         return;
     }
@@ -77,7 +77,7 @@ void Button::mouseUp(MouseEvent event) {
     mState = ControlState::Normal;
 }
 
-void Button::mouseDrag(MouseEvent event) {
+void Button::mouseDrag(const MouseEvent& event) {
     if (!isEnabled()) {
         return;
     }

@@ -43,11 +43,11 @@ public:
     void connectEventListeners();
     void disconnectEventListeners();
 
-    virtual void mouseDown(ci::app::MouseEvent event) {}
-    virtual void mouseUp(ci::app::MouseEvent event) {}
-    virtual void mouseWheel(ci::app::MouseEvent event) {}
-    virtual void mouseMove(ci::app::MouseEvent event) {}
-    virtual void mouseDrag(ci::app::MouseEvent event) {}
+    virtual void mouseDown(const ci::app::MouseEvent& event) {}
+    virtual void mouseUp(const ci::app::MouseEvent& event) {}
+    virtual void mouseWheel(const ci::app::MouseEvent& event) {}
+    virtual void mouseMove(const ci::app::MouseEvent& event) {}
+    virtual void mouseDrag(const ci::app::MouseEvent& event) {}
 
     ci::ivec2 convertPointFromView(const ci::vec2& point, const ViewRef& view);
     ci::ivec2 convertPointToView(const ci::ivec2& point, const ViewRef& view);

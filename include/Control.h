@@ -3,7 +3,7 @@
 //  Cinder-ControlRoom
 //
 //  Created by Jean-Pierre Mouilleseaux on 01 Jul 2014.
-//  Copyright 2014 Chorded Constructions. All rights reserved.
+//  Copyright 2014-2015 Chorded Constructions. All rights reserved.
 //
 
 #pragma once
@@ -30,10 +30,10 @@ public:
     inline bool isHighlighted() const { return mState == ControlState::Highlighted; }
 
     template<typename T, typename Y>
-    inline void connectControlEventHandler(const ControlEvent& event, T handler, Y* obj) {
+    inline void connectControlEventHandler(const ControlEvent event, T handler, Y* obj) {
         connectControlEventHandler(event, std::bind(handler, obj));
     }
-    void connectControlEventHandler(const ControlEvent& event, const std::function<void (const ControlRef&)>& handler) {
+    void connectControlEventHandler(const ControlEvent event, const std::function<void (const ControlRef&)>& handler) {
         mControlEventHandlerMap[event] = handler;
     }
 

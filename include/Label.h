@@ -3,7 +3,7 @@
 //  Cinder-ControlRoom
 //
 //  Created by Jean-Pierre Mouilleseaux on 02 Jul 2014.
-//  Copyright 2014 Chorded Constructions. All rights reserved.
+//  Copyright 2014-2015 Chorded Constructions. All rights reserved.
 //
 
 #pragma once
@@ -26,7 +26,7 @@ public:
     inline void setText(const std::string& text) { mText = text; }
     inline std::string getText() const { return mText; }
 
-    inline void setTextAlignment(const TextAlignment& alignment) { mAlignment = alignment; }
+    inline void setTextAlignment(const TextAlignment alignment) { mAlignment = alignment; }
     inline TextAlignment getTextAlignment() const { return mAlignment; }
 
     inline void setEnabled(bool enabled) { mEnabled = enabled; }

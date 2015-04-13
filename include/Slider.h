@@ -3,7 +3,7 @@
 //  Cinder-ControlRoom
 //
 //  Created by Jean-Pierre Mouilleseaux on 01 Jul 2014.
-//  Copyright 2014 Chorded Constructions. All rights reserved.
+//  Copyright 2014-2015 Chorded Constructions. All rights reserved.
 //
 
 #pragma once
@@ -33,9 +33,9 @@ public:
 
     void draw();
 
-    void mouseDown(ci::app::MouseEvent event);
-    void mouseUp(ci::app::MouseEvent event);
-    void mouseDrag(ci::app::MouseEvent event);
+    void mouseDown(const ci::app::MouseEvent& event);
+    void mouseUp(const ci::app::MouseEvent& event);
+    void mouseDrag(const ci::app::MouseEvent& event);
 
 private:
     Slider(const ci::Rectf& frame, float value, float minimum, float maximum);
