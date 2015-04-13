@@ -14,10 +14,10 @@ namespace Cinder { namespace ControlRoom {
 
 typedef std::shared_ptr<class Button> ButtonRef;
 
-enum class ButtonType {MomentaryPushIn};
-
 class Button : public Control {
 public:
+    enum class ButtonType { MomentaryPushIn };
+
     static ButtonRef create(const ci::Rectf& frame, const ButtonType& type, const std::string& title);
     ~Button();
 

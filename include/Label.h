@@ -14,10 +14,10 @@ namespace Cinder { namespace ControlRoom {
 
 typedef std::shared_ptr<class Label> LabelRef;
 
-enum class TextAlignment {Left, Center, Right};
-
 class Label : public View {
 public:
+    enum class TextAlignment { Left, Center, Right };
+
     static LabelRef create(const ci::Rectf& frame, const std::string& text);
     ~Label();
 

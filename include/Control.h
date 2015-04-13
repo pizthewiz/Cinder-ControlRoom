@@ -14,11 +14,11 @@ namespace Cinder { namespace ControlRoom {
 
 typedef std::shared_ptr<class Control> ControlRef;
 
-enum class ControlState {Normal, Highlighted, Disabled};
-enum class ControlEvent {Down, UpInside, UpOutside, ValueChanged};
-
 class Control : public View {
 public:
+    enum class ControlState { Normal, Highlighted, Disabled };
+    enum class ControlEvent { Down, UpInside, UpOutside, ValueChanged };
+
     virtual ~Control() {}
 
     inline void setEnabled(bool enabled) { mState = enabled ? ControlState::Normal : ControlState::Disabled; }
