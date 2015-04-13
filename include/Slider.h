@@ -31,11 +31,11 @@ public:
     inline void setContinuous(bool continuous) { mContinuous = continuous; }
     inline bool isContinuous() const { return mContinuous; }
 
-    void draw();
+    void draw() override;
 
-    void mouseDown(const ci::app::MouseEvent& event);
-    void mouseUp(const ci::app::MouseEvent& event);
-    void mouseDrag(const ci::app::MouseEvent& event);
+    void mouseDown(const ci::app::MouseEvent& event) override;
+    void mouseUp(const ci::app::MouseEvent& event) override;
+    void mouseDrag(const ci::app::MouseEvent& event) override;
 
 private:
     Slider(const ci::Rectf& frame, float value, float minimum, float maximum);

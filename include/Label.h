@@ -32,7 +32,7 @@ public:
     inline void setEnabled(bool enabled) { mEnabled = enabled; }
     inline bool isEnabled() const { return mEnabled; }
 
-    void draw();
+    void draw() override;
 
 protected:
     Label(const ci::Rectf& frame, const std::string& text);

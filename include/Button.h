@@ -29,11 +29,11 @@ public:
     inline void setTitle(const std::string& title) { mTitle = title; }
     inline std::string getTitle() const { return mTitle; }
 
-    void draw();
+    void draw() override;
 
-    void mouseDown(const ci::app::MouseEvent& event);
-    void mouseUp(const ci::app::MouseEvent& event);
-    void mouseDrag(const ci::app::MouseEvent& event);
+    void mouseDown(const ci::app::MouseEvent& event) override;
+    void mouseUp(const ci::app::MouseEvent& event) override;
+    void mouseDrag(const ci::app::MouseEvent& event) override;
 
 private:
     Button(const ci::Rectf& frame, const ButtonType type, const std::string& title);
