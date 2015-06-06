@@ -6,7 +6,7 @@
 - Mouse Event Handling
 - Reusable Controls
 
-*NOTE* - `Cinder-ControlRoom` is to be used with the heir apparent [glNext](https://github.com/cinder/Cinder/tree/glNext) Cinder branch.
+*NOTE* - `Cinder-ControlRoom` is intended for use with the upcoming 0.9.0 Cinder release.
 
 ### USAGE
 ```C++
