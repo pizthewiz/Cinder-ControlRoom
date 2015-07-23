@@ -28,6 +28,8 @@ public:
 
     inline ViewRef getSuperview() const { return mSuperview; }
     inline std::vector<ViewRef> getSubviews() const { return mSubviews; }
+    inline ci::app::WindowRef getWindow() const { return mWindow; }
+    void setWindow(const ci::app::WindowRef window);
     void addSubview(const ViewRef& view);
     void removeFromSuperview();
     bool isDescendantOfView(const ViewRef& view);
@@ -65,6 +67,7 @@ protected:
 
     ViewRef mSuperview;
     std::vector<ViewRef> mSubviews;
+    ci::app::WindowRef mWindow;
 
     ci::Color mBackgroundColor;
     bool mHidden;

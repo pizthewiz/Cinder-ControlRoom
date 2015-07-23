@@ -27,6 +27,14 @@ View::~View() {
 
 #pragma mark - HIERARCHY
 
+void View::setWindow(const ci::app::WindowRef window) {
+    mWindow = window;
+
+    for (auto subview : mSubviews) {
+        subview->setWindow(window);
+    }
+}
+
 void View::addSubview(const ViewRef& view) {
     // prevent cycle
     if (isDescendantOfView(view)) {
@@ -36,6 +44,7 @@ void View::addSubview(const ViewRef& view) {
 
     mSubviews.push_back(view);
     view->setSuperview(shared_from_this());
+    view->setWindow(mWindow);
 }
 
 void View::removeFromSuperview() {
@@ -188,6 +197,7 @@ void View::removeSubview(const ViewRef& view) {
 
     mSubviews.erase(std::find(mSubviews.begin(), mSubviews.end(), view));
     view->setSuperview(nullptr);
+    view->setWindow(nullptr);
 }
 
 ViewRef View::hitTestPoint(const ci::ivec2& point) {
