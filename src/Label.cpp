@@ -32,16 +32,16 @@ void Label::draw() {
         gl::enableAlphaBlending(); {
             gl::color(Color::gray(74.0f/255.0f));
 
-            vec2 textSize = mFont->measureString(mText) * 0.5f;
+            ci::Vec2f textSize = mFont->measureString(mText) * 0.5f;
             Rectf availableFrame = getBounds();
-            float x = availableFrame.getMinX();
+            float x = availableFrame.getX1();
             if (mAlignment == TextAlignment::Center) {
-                x = availableFrame.getMinX() + math<float>::max((availableFrame.getWidth() - textSize.x) * 0.5f, 0.0f);
+                x = availableFrame.getX1() + math<float>::max((availableFrame.getWidth() - textSize.x) * 0.5f, 0.0f);
             } else if (mAlignment == TextAlignment::Right) {
-                x = math<float>::max(availableFrame.getMaxX() - textSize.x, 0.0f);
+                x = math<float>::max(availableFrame.getX2() - textSize.x, 0.0f);
             }
-            float y = availableFrame.getMinY() + math<float>::max((availableFrame.getHeight() - textSize.y) * 0.5f, 0.0f) + textSize.y - 4.0f /* magic number */;
-            vec2 baseline = vec2(x, y);
+            float y = availableFrame.getY1() + math<float>::max((availableFrame.getHeight() - textSize.y) * 0.5f, 0.0f) + textSize.y - 4.0f /* magic number */;
+            ci::Vec2f baseline = ci::Vec2f(x, y);
             mFont->drawString(mText, baseline, gl::TextureFont::DrawOptions().scale(0.5f).pixelSnap(false));
         } gl::disableAlphaBlending();
     } gl::popModelView();

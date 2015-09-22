@@ -47,7 +47,7 @@ void Slider::draw() {
 
         // fill
         float width = bounds.getWidth() * (mValue - mMinimum) / (mMaximum - mMinimum);
-        Rectf fillFrame = Rectf(vec2(0.0f, 0.0f), vec2(width, bounds.getHeight()));
+      Rectf fillFrame = Rectf(ci::Vec2f(0.0f, 0.0f), ci::Vec2f(width, bounds.getHeight()));
         gl::color(Color::gray(170.0f/255.0f));
         gl::drawSolidRect(fillFrame);
     } gl::popModelView();
@@ -62,7 +62,7 @@ void Slider::mouseDown(const MouseEvent& event) {
 
     mTracking = true;
 
-    ivec2 point = convertPointFromView(event.getPos(), nullptr);
+    ci::Vec2f point = convertPointFromView(event.getPos(), nullptr);
     float value = mMinimum + (float)point.x / mFrame.getWidth() * (mMaximum - mMinimum);
     setValue(value);
 
@@ -80,7 +80,7 @@ void Slider::mouseUp(const MouseEvent& event) {
         return;
     }
 
-    ivec2 point = convertPointFromView(event.getPos(), nullptr);
+  ci::Vec2f point = convertPointFromView(event.getPos(), nullptr);
     ControlEvent e = getBounds().contains(point) ? ControlEvent::UpInside : ControlEvent::UpOutside;
     if (mControlEventHandlerMap.find(e) != mControlEventHandlerMap.end()) {
         mControlEventHandlerMap[e](getPtr());
@@ -98,7 +98,7 @@ void Slider::mouseDrag(const MouseEvent& event) {
         return;
     }
 
-    ivec2 point = convertPointFromView(event.getPos(), nullptr);
+  ci::Vec2f point = convertPointFromView(event.getPos(), nullptr);
     float value = mMinimum + (float)point.x / mFrame.getWidth() * (mMaximum - mMinimum);
     setValue(value);
 
