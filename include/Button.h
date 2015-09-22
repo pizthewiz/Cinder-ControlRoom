@@ -9,7 +9,7 @@
 #pragma once
 
 #include "Control.h"
-
+#include "cinder/gl/TextureFont.h"
 namespace Cinder { namespace ControlRoom {
 
 typedef std::shared_ptr<class Button> ButtonRef;

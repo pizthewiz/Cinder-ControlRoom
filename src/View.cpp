@@ -101,11 +101,11 @@ void View::draw() {
 #pragma mark -
 
 void View::connectEventListeners() {
-    app::AppBase* app = app::App::get();
+    app::App* app = app::App::get();
     mConnectionMouseDown = app->getWindow()->getSignalMouseDown().connect([&](MouseEvent event) {
         mTrackingView = nullptr;
 
-        ivec2 point = convertPointFromView(event.getPos(), nullptr);
+      ci::Vec2f point = convertPointFromView(event.getPos(), nullptr);
         mTrackingView = hitTestPoint(point);
         if (!mTrackingView) {
             return;
@@ -135,7 +135,7 @@ void View::connectEventListeners() {
     mConnectionMouseMove = app->getWindow()->getSignalMouseMove().connect([&](MouseEvent event) {
         mTrackingOverView = nullptr;
 
-        ivec2 point = convertPointFromView(event.getPos(), nullptr);
+      ci::Vec2f point = convertPointFromView(event.getPos(), nullptr);
         mTrackingOverView = hitTestPoint(point);
         if (!mTrackingOverView) {
             return;
@@ -164,9 +164,9 @@ void View::disconnectEventListeners() {
 
 #pragma mark - COORDINATE CONVERSION
 
-ivec2 View::convertPointFromView(const vec2& point, const ViewRef& view) {
+  ci::Vec2f View::convertPointFromView(const ci::Vec2f& point, const ViewRef& view) {
     // view to local
-    vec2 p = point;
+    ci::Vec2f p = point;
     if (isDescendantOfView(view)) {
         ViewRef v = shared_from_this();
         while (v && v != view) {
@@ -183,7 +183,7 @@ ivec2 View::convertPointFromView(const vec2& point, const ViewRef& view) {
     return p;
 }
 
-ivec2 View::convertPointToView(const ivec2& point, const ViewRef& view) {
+ci::Vec2f View::convertPointToView(const ci::Vec2f& point, const ViewRef& view) {
     // local to view
     return view->convertPointFromView(point, shared_from_this());
 }
@@ -200,7 +200,7 @@ void View::removeSubview(const ViewRef& view) {
     view->setWindow(nullptr);
 }
 
-ViewRef View::hitTestPoint(const ci::ivec2& point) {
+ViewRef View::hitTestPoint(const ci::Vec2f& point) {
     if (!isPointInsideBounds(point)) {
         return nullptr;
     }
@@ -211,7 +211,7 @@ ViewRef View::hitTestPoint(const ci::ivec2& point) {
             continue;
         }
 
-        ivec2 p = v->convertPointFromView(point, shared_from_this());
+        ci::Vec2f p = v->convertPointFromView(point, shared_from_this());
         if (!v->isPointInsideBounds(p)) {
             continue;
         }
@@ -223,14 +223,14 @@ ViewRef View::hitTestPoint(const ci::ivec2& point) {
     if (!view) {
         view = shared_from_this();
     } else {
-        ivec2 p = view->convertPointFromView(point, shared_from_this());
+        ci::Vec2f p = view->convertPointFromView(point, shared_from_this());
         view = view->hitTestPoint(p);
     }
 
     return view;
 }
 
-bool View::isPointInsideBounds(const ci::ivec2& point) {
+bool View::isPointInsideBounds(const ci::Vec2f& point) {
     return getBounds().contains(point);
 }
 

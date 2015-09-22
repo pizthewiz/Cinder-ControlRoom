@@ -39,11 +39,11 @@ void Button::draw() {
         gl::enableAlphaBlending(); {
             gl::color(isHighlighted() ? Color::gray(230.0f/255.0f) : Color::gray(74.0f/255.0f));
 
-            vec2 titleSize = mFont->measureString(mTitle) * 0.5f;
-            Rectf availableFrame = bounds.inflated(ivec2(-5.0f, 0.0f));
-            float x = availableFrame.getMinX() + math<float>::max((availableFrame.getWidth() - titleSize.x) * 0.5f, 0.0f);
-            float y = availableFrame.getMinY() + math<float>::max((availableFrame.getHeight() - titleSize.y) * 0.5f, 0.0f) + titleSize.y - 4.0f /* magic number */;
-            vec2 baseline = vec2(x, y);
+          ci::Vec2f titleSize = mFont->measureString(mTitle) * 0.5f;
+          Rectf availableFrame = bounds.inflated(ci::Vec2f(-5.0f, 0.0f));
+            float x = availableFrame.getX1() + math<float>::max((availableFrame.getWidth() - titleSize.x) * 0.5f, 0.0f);
+            float y = availableFrame.getY1() + math<float>::max((availableFrame.getHeight() - titleSize.y) * 0.5f, 0.0f) + titleSize.y - 4.0f /* magic number */;
+            ci::Vec2f baseline = ci::Vec2f(x, y);
             mFont->drawString(mTitle, baseline, gl::TextureFont::DrawOptions().scale(0.5f).pixelSnap(false));
         } gl::disableAlphaBlending();
     } gl::popModelView();
@@ -68,7 +68,7 @@ void Button::mouseUp(const MouseEvent& event) {
         return;
     }
 
-    ivec2 point = convertPointFromView(event.getPos(), nullptr);
+  ci::Vec2f point = convertPointFromView(event.getPos(), nullptr);
     ControlEvent e = getBounds().contains(point) ? ControlEvent::UpInside : ControlEvent::UpOutside;
     if (mControlEventHandlerMap.find(e) != mControlEventHandlerMap.end()) {
         mControlEventHandlerMap[e](getPtr());
@@ -82,7 +82,7 @@ void Button::mouseDrag(const MouseEvent& event) {
         return;
     }
 
-    ivec2 point = convertPointFromView(event.getPos(), nullptr);
+  ci::Vec2f point = convertPointFromView(event.getPos(), nullptr);
     if (getBounds().contains(point) != isHighlighted()) {
         mState = mState == ControlState::Normal ? ControlState::Highlighted : ControlState::Normal;
     }

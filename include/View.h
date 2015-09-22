@@ -10,6 +10,7 @@
 
 #include "cinder/app/App.h"
 #include "cinder/gl/gl.h"
+#include "cinder/app/AppNative.h"
 
 namespace Cinder { namespace ControlRoom {
 
@@ -24,7 +25,7 @@ public:
 
     inline void setFrame(const ci::Rectf& frame) { mFrame = frame; }
     inline ci::Rectf getFrame() const { return mFrame; }
-    inline ci::Rectf getBounds() const { return ci::Rectf(ci::vec2(0), mFrame.getSize()); }
+    inline ci::Rectf getBounds() const { return ci::Rectf(ci::Vec2f(0), mFrame.getSize()); }
 
     inline ViewRef getSuperview() const { return mSuperview; }
     inline std::vector<ViewRef> getSubviews() const { return mSubviews; }
@@ -51,8 +52,8 @@ public:
     virtual void mouseMove(const ci::app::MouseEvent& event) {}
     virtual void mouseDrag(const ci::app::MouseEvent& event) {}
 
-    ci::ivec2 convertPointFromView(const ci::vec2& point, const ViewRef& view);
-    ci::ivec2 convertPointToView(const ci::ivec2& point, const ViewRef& view);
+    ci::Vec2f convertPointFromView(const ci::Vec2f& point, const ViewRef& view);
+    ci::Vec2f convertPointToView(const ci::Vec2f& point, const ViewRef& view);
 
 protected:
     View(const ci::Rectf& frame);
@@ -60,8 +61,8 @@ protected:
     inline void setSuperview(const ViewRef& view) { mSuperview = view; }
     void removeSubview(const ViewRef& view);
 
-    ViewRef hitTestPoint(const ci::ivec2& point);
-    bool isPointInsideBounds(const ci::ivec2& point);
+    ViewRef hitTestPoint(const ci::Vec2f& point);
+    bool isPointInsideBounds(const ci::Vec2f& point);
 
     ci::Rectf mFrame;
 
@@ -72,11 +73,11 @@ protected:
     ci::Color mBackgroundColor;
     bool mHidden;
 
-    ci::signals::ScopedConnection mConnectionMouseDown;
-    ci::signals::ScopedConnection mConnectionMouseUp;
-    ci::signals::ScopedConnection mConnectionMouseWheel;
-    ci::signals::ScopedConnection mConnectionMouseMove;
-    ci::signals::ScopedConnection mConnectionMouseDrag;
+    ci::signals::scoped_connection mConnectionMouseDown;
+    ci::signals::scoped_connection mConnectionMouseUp;
+    ci::signals::scoped_connection mConnectionMouseWheel;
+    ci::signals::scoped_connection mConnectionMouseMove;
+    ci::signals::scoped_connection mConnectionMouseDrag;
     ViewRef mTrackingView;
     ViewRef mTrackingOverView;
 };
